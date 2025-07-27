@@ -1,9 +1,53 @@
 from flet import *
+from apps.stats_scraper import get_stats
+from apps.stats_news_scraper import get_news
+
+symbol_field = TextField()
 
 def main(page: Page):
-    BGM = "#033f63"
-    SBGM = "#b1c4b7"
+    BGM = "#5e2760"
+    SBGM = "#dcdcdc"
     TEXT = '#fedc97'
+    
+    symbol_field = TextField(
+            label='Enter Stock Symbol',
+            label_style=TextStyle(size=14),
+            width=200,
+            multiline=False,
+            autofocus=True,
+            border_color = '#ffffff',
+            bgcolor="#3D3535"
+        )
+    result_text = Text(
+            "Waiting for Data...",
+            max_lines=10,
+            overflow=TextOverflow.ELLIPSIS,
+            size=20,
+            color='#000000'
+        )
+    company_name = Text(
+            value="",
+            size=24,
+            color=BGM,
+            weight=FontWeight.BOLD
+            )
+    
+    def get_fundamentals(e):
+        symbol = symbol_field.value.upper()
+        result = get_stats(symbol)
+        result_text.value = f'''
+        📊 Fundamentals for {symbol}:\n
+        Date Change: {result.get('Date Change')}
+        Price Today: {result.get('Price Today')}
+        Change: {result.get('Change')}
+        PE Ratio: {result.get('PE Ratio')}
+        PS Ratio: {result.get('PS Ratio')}
+        PEG Ratio: {result.get('PEG Ratio')}
+        Return on Equity: {result.get('Return on Equity')}
+        '''
+        company_name.value = f'{result.get('Company Name')}'
+        page.update()
+    
     first_page_contents = Container(
 
         content=Column(
@@ -24,15 +68,7 @@ def main(page: Page):
                 Container(height=10),
                 Text(value='Hi, Vash!', size=24, weight=FontWeight.BOLD),
                 Container(height=5),
-                TextField(
-                    label='Enter Stock Symbol',
-                    label_style=TextStyle(size=14),
-                    width=200,
-                    multiline=False,
-                    autofocus=True,
-                    border_color = BGM,
-                    bgcolor="#212020"
-                ),
+                symbol_field,
                 Container(
                     height=300,
                     width=200,
@@ -45,7 +81,7 @@ def main(page: Page):
                                         icon=Icons.BUSINESS,
                                         color="#110f0f",
                                         bgcolor = '#ffffff',
-                                        on_click=lambda e: print('Company Fundamentals'),
+                                        on_click=get_fundamentals,
                                         ),
                                 width=200,
                                 border_radius=1,
@@ -108,7 +144,7 @@ def main(page: Page):
         )
     )
     
-    page_2 = Column(
+    fundamentals = Column(
         controls=[
             Container(
                 width=1030,
@@ -118,18 +154,16 @@ def main(page: Page):
                 content=Column(
                         controls=[
                         Text(
-                        value="STOCK SYMBOL",
-                        size=24,
-                        color='#000000',
-                        weight=FontWeight.BOLD
+                            value='COMPANY:',
+                            size=16,
+                            color='#000000',
+                            weight=FontWeight.W_500
                         ),
                         Container(
-                            Text(
-                                "This is a long block of text that wraps nicely across multiple lines...",
-                                max_lines=10,
-                                overflow=TextOverflow.ELLIPSIS,
-                                size=20
-                            )
+                            content=company_name
+                        ),
+                        Container(
+                            content=result_text
                         )
                     ]    
                 )
@@ -177,7 +211,7 @@ def main(page: Page):
                     width=1030,
                     height=650,
                     bgcolor='#ffffff',
-                    content=page_2
+                    content=fundamentals
                 )    
             ]
         ),
