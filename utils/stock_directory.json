@@ -1,0 +1,302 @@
+[
+  {
+    "company_name": "Asia Amalgamated Holdings Corporation",
+    "stock_symbol": "AAA",
+    "cmpy_id": "55",
+    "security_id": "347"
+  },
+  {
+    "company_name": "Atok-Big Wedge Co., Inc.",
+    "stock_symbol": "AB",
+    "cmpy_id": "19",
+    "security_id": "181"
+  },
+  {
+    "company_name": "AbaCore Capital Holdings, Inc.",
+    "stock_symbol": "ABA",
+    "cmpy_id": "174",
+    "security_id": "173"
+  },
+  {
+    "company_name": "Asiabest Group International Inc.",
+    "stock_symbol": "ABG",
+    "cmpy_id": "176",
+    "security_id": "350"
+  },
+  {
+    "company_name": "ABS-CBN Corporation",
+    "stock_symbol": "ABS",
+    "cmpy_id": "114",
+    "security_id": "123"
+  },
+  {
+    "company_name": "ABS-CBN Holdings Corporation",
+    "stock_symbol": "ABSP",
+    "cmpy_id": "15",
+    "security_id": "259"
+  },
+  {
+    "company_name": "Ayala Corporation",
+    "stock_symbol": "AC",
+    "cmpy_id": "57",
+    "security_id": "180"
+  },
+  {
+    "company_name": "Acesite (Phils.) Hotel Corporation",
+    "stock_symbol": "ACE",
+    "cmpy_id": "48",
+    "security_id": "370"
+  },
+  {
+    "company_name": "ACEN CORPORATION",
+    "stock_symbol": "ACEN",
+    "cmpy_id": "233",
+    "security_id": "140"
+  },
+  {
+    "company_name": "Alsons Consolidated Resources, Inc.",
+    "stock_symbol": "ACR",
+    "cmpy_id": "121",
+    "security_id": "170"
+  },
+  {
+    "company_name": "Aboitiz Equity Ventures, Inc.",
+    "stock_symbol": "AEV",
+    "cmpy_id": "16",
+    "security_id": "183"
+  },
+  {
+    "company_name": "Alliance Global Group, Inc.",
+    "stock_symbol": "AGI",
+    "cmpy_id": "212",
+    "security_id": "179"
+  },
+  {
+    "company_name": "Arthaland Corporation",
+    "stock_symbol": "ALCO",
+    "cmpy_id": "172",
+    "security_id": "316"
+  },
+  {
+    "company_name": "Anchor Land Holdings, Inc.",
+    "stock_symbol": "ALHI",
+    "cmpy_id": "612",
+    "security_id": "536"
+  },
+  {
+    "company_name": "Ayala Land, Inc.",
+    "stock_symbol": "ALI",
+    "cmpy_id": "180",
+    "security_id": "293"
+  },
+  {
+    "company_name": "AllDay Marts, Inc.",
+    "stock_symbol": "ALLDY",
+    "cmpy_id": "686",
+    "security_id": "674"
+  },
+  {
+    "company_name": "AyalaLand Logistics Holdings Corp.",
+    "stock_symbol": "ALLHC",
+    "cmpy_id": "26",
+    "security_id": "202"
+  },
+  {
+    "company_name": "Alternergy Holdings Corporation",
+    "stock_symbol": "ALTER",
+    "cmpy_id": "701",
+    "security_id": "696"
+  },
+  {
+    "company_name": "AgriNurture, Inc.",
+    "stock_symbol": "ANI",
+    "cmpy_id": "619",
+    "security_id": "547"
+  },
+  {
+    "company_name": "A. Soriano Corporation",
+    "stock_symbol": "ANS",
+    "cmpy_id": "14",
+    "security_id": "169"
+  },
+  {
+    "company_name": "Aboitiz Power Corporation",
+    "stock_symbol": "AP",
+    "cmpy_id": "609",
+    "security_id": "532"
+  },
+  {
+    "company_name": "APC Group, Inc.",
+    "stock_symbol": "APC",
+    "cmpy_id": "177",
+    "security_id": "182"
+  },
+  {
+    "company_name": "Apollo Global Capital, Inc.",
+    "stock_symbol": "APL",
+    "cmpy_id": "638",
+    "security_id": "581"
+  },
+  {
+    "company_name": "Anglo Philippine Holdings Corporation",
+    "stock_symbol": "APO",
+    "cmpy_id": "52",
+    "security_id": "171"
+  },
+  {
+    "company_name": "Altus Property Ventures, Inc.",
+    "stock_symbol": "APVI",
+    "cmpy_id": "678",
+    "security_id": "654"
+  },
+  {
+    "company_name": "Apex Mining Co., Inc.",
+    "stock_symbol": "APX",
+    "cmpy_id": "178",
+    "security_id": "318"
+  },
+  {
+    "company_name": "Abra Mining and Industrial Corporation",
+    "stock_symbol": "AR",
+    "cmpy_id": "33",
+    "security_id": "321"
+  },
+  {
+    "company_name": "Araneta Properties, Inc.",
+    "stock_symbol": "ARA",
+    "cmpy_id": "38",
+    "security_id": "294"
+  },
+  {
+    "company_name": "AREIT, Inc.",
+    "stock_symbol": "AREIT",
+    "cmpy_id": "679",
+    "security_id": "655"
+  },
+  {
+    "company_name": "Raslag Corp.",
+    "stock_symbol": "ASLAG",
+    "cmpy_id": "694",
+    "security_id": "689"
+  },
+  {
+    "company_name": "Atlas Consolidated Mining and Development Corporation",
+    "stock_symbol": "AT",
+    "cmpy_id": "34",
+    "security_id": "320"
+  },
+  {
+    "company_name": "Asian Terminals, Inc.",
+    "stock_symbol": "ATI",
+    "cmpy_id": "53",
+    "security_id": "141"
+  },
+  {
+    "company_name": "ATN Holdings, Inc.",
+    "stock_symbol": "ATN",
+    "cmpy_id": "56",
+    "security_id": "176"
+  },
+  {
+    "company_name": "Asia United Bank Corporation",
+    "stock_symbol": "AUB",
+    "cmpy_id": "641",
+    "security_id": "584"
+  },
+  {
+    "company_name": "Axelum Resources Corp.",
+    "stock_symbol": "AXLM",
+    "cmpy_id": "673",
+    "security_id": "646"
+  },
+  {
+    "company_name": "Balai Ni Fruitas Inc.",
+    "stock_symbol": "BALAI",
+    "cmpy_id": "697",
+    "security_id": "692"
+  },
+  {
+    "company_name": "Benguet Corporation",
+    "stock_symbol": "BC",
+    "cmpy_id": "108",
+    "security_id": "353"
+  },
+  {
+    "company_name": "Berjaya Philippines Inc.",
+    "stock_symbol": "BCOR",
+    "cmpy_id": "9",
+    "security_id": "391"
+  },
+  {
+    "company_name": "BDO Unibank, Inc.",
+    "stock_symbol": "BDO",
+    "cmpy_id": "260",
+    "security_id": "468"
+  },
+  {
+    "company_name": "Belle Corporation",
+    "stock_symbol": "BEL",
+    "cmpy_id": "21",
+    "security_id": "252"
+  },
+  {
+    "company_name": "BHI Holdings, Inc.",
+    "stock_symbol": "BH",
+    "cmpy_id": "62",
+    "security_id": "358"
+  },
+  {
+    "company_name": "Boulevard Holdings, Inc.",
+    "stock_symbol": "BHI",
+    "cmpy_id": "63",
+    "security_id": "187"
+  },
+  {
+    "company_name": "Bright Kindle Resources & Investments Inc.",
+    "stock_symbol": "BKR",
+    "cmpy_id": "66",
+    "security_id": "116"
+  },
+  {
+    "company_name": "Bloomberry Resorts Corporation",
+    "stock_symbol": "BLOOM",
+    "cmpy_id": "49",
+    "security_id": "233"
+  },
+  {
+    "company_name": "Bogo-Medellin Milling Company, Inc.",
+    "stock_symbol": "BMM",
+    "cmpy_id": "181",
+    "security_id": "359"
+  },
+  {
+    "company_name": "Bank of Commerce",
+    "stock_symbol": "BNCOM",
+    "cmpy_id": "692",
+    "security_id": "687"
+  },
+  {
+    "company_name": "Bank of the Philippine Islands",
+    "stock_symbol": "BPI",
+    "cmpy_id": "234",
+    "security_id": "101"
+  },
+  {
+    "company_name": "A Brown Company, Inc.",
+    "stock_symbol": "BRN",
+    "cmpy_id": "13",
+    "security_id": "234"
+  },
+  {
+    "company_name": "Basic Energy Corporation",
+    "stock_symbol": "BSC",
+    "cmpy_id": "60",
+    "security_id": "188"
+  },
+  {
+    "company_name": "Chelsea Logistics and Infrastructure Holdings Corp.",
+    "stock_symbol": "C",
+    "cmpy_id": "669",
+    "security_id": "636"
+  }
+]
