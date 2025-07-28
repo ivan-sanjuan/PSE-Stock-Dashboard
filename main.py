@@ -1,226 +1,252 @@
-from flet import *
+import flet as ft
 from apps.stats_scraper import get_stats
 from apps.stats_news_scraper import get_news
 
-symbol_field = TextField()
-
-def main(page: Page):
-    BGM = "#5e2760"
-    SBGM = "#dcdcdc"
-    TEXT = '#fedc97'
-    
-    symbol_field = TextField(
-            label='Enter Stock Symbol',
-            label_style=TextStyle(size=14),
-            width=200,
-            multiline=False,
-            autofocus=True,
-            border_color = '#ffffff',
-            bgcolor="#3D3535"
-        )
-    result_text = Text(
-            "Waiting for Data...",
-            max_lines=10,
-            overflow=TextOverflow.ELLIPSIS,
-            size=20,
-            color='#000000'
-        )
-    company_name = Text(
-            value="",
-            size=24,
-            color=BGM,
-            weight=FontWeight.BOLD
-            )
-    
-    def get_fundamentals(e):
-        symbol = symbol_field.value.upper()
-        result = get_stats(symbol)
-        result_text.value = f'''
-        📊 Fundamentals for {symbol}:\n
-        Date Change: {result.get('Date Change')}
-        Price Today: {result.get('Price Today')}
-        Change: {result.get('Change')}
-        PE Ratio: {result.get('PE Ratio')}
-        PS Ratio: {result.get('PS Ratio')}
-        PEG Ratio: {result.get('PEG Ratio')}
-        Return on Equity: {result.get('Return on Equity')}
-        '''
-        company_name.value = f'{result.get('Company Name')}'
-        page.update()
-    
-    first_page_contents = Container(
-
-        content=Column(
-            controls=[
-                Row(alignment='spaceBetween',
+class StockFunctions(ft.Container):
+    def __init__ (self, icon: str, label: str):
+        super().__init__()
+        self.icon = icon
+        self.label = label
+        
+    def render(self):
+        return ft.Container(
+            content=ft.ElevatedButton(
+                width=260,
+                height=40,
+                bgcolor="#1F2134",
+                style=ft.ButtonStyle(
+                    shape=ft.RoundedRectangleBorder(radius=8),
+                    text_style=ft.TextStyle(size=16, weight=ft.FontWeight.NORMAL),
+                    color='#ffffff'
+                ),
+                content=ft.Row(
                     controls=[
-                        Container(
-                            content=Icon(Icons.MENU)
-                        ),
-                        Row(
-                            controls=[
-                                Icon(Icons.SEARCH),
-                                Icon(Icons.NOTIFICATIONS_OUTLINED)
-                            ]
-                        )
-                    ]
-                ),
-                Container(height=10),
-                Text(value='Hi, Vash!', size=24, weight=FontWeight.BOLD),
-                Container(height=5),
-                symbol_field,
-                Container(
-                    height=300,
-                    width=200,
-                    content=Column(
-                            controls=[
-                                    Container(height=3),
-                                    Container(
-                                    ElevatedButton(
-                                        text='Fundamentals',
-                                        icon=Icons.BUSINESS,
-                                        color="#110f0f",
-                                        bgcolor = '#ffffff',
-                                        on_click=get_fundamentals,
-                                        ),
-                                width=200,
-                                border_radius=1,
-                                padding=5
-                                    ),
-                                    Container(
-                                    ElevatedButton(
-                                    text='Technicals',
-                                    color="#110f0f",
-                                    bgcolor='#ffffff',
-                                    icon=Icons.STACKED_LINE_CHART,
-                                    on_click=lambda e: print('Technicals'),
-                                    ),
-                                width=200,
-                                border_radius=1,
-                                padding=5    
-                                ),
-                                    Container(
-                                    ElevatedButton(
-                                    text='Dividend Report',
-                                    color="#110f0f",
-                                    bgcolor='#ffffff',
-                                    icon=Icons.ATTACH_MONEY,
-                                    on_click=lambda e: print('Dividend Report'),
-                                    ),
-                                width=200,
-                                border_radius=1,
-                                padding=5    
-                                ),
-                                    Container(
-                                    ElevatedButton(
-                                    text='Company News',
-                                    color="#110f0f",
-                                    bgcolor='#ffffff',
-                                    icon=Icons.NEWSPAPER,
-                                    on_click=lambda e: print('Company News'),
-                                    ),
-                                width=200,
-                                border_radius=1,
-                                padding=5    
-                                ),
-                                    Container(
-                                    ElevatedButton(
-                                    text='Company News',
-                                    color="#110f0f",
-                                    bgcolor='#ffffff',
-                                    icon=Icons.INFO,
-                                    on_click=lambda e: print('About the Company'),
-                                    ),
-                                width=200,
-                                border_radius=1,
-                                padding=5    
-                                )                                                                            
-                            ],
-                            alignment=MainAxisAlignment.START
-                        )                
+                        ft.Icon(self.icon),
+                        ft.Text(self.label)
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER
                 )
-                
-            ]
+            ),
+            padding=ft.padding.only(20)
         )
-    )
-    
-    fundamentals = Column(
-        controls=[
-            Container(
-                width=1030,
-                height=650,
-                bgcolor=SBGM,
-                padding=padding.only(top=50, left=20,right=20, bottom=5),
-                content=Column(
-                        controls=[
-                        Text(
-                            value='COMPANY:',
-                            size=16,
-                            color='#000000',
-                            weight=FontWeight.W_500
-                        ),
-                        Container(
-                            content=company_name
-                        ),
-                        Container(
-                            content=result_text
-                        )
-                    ]    
-                )
+        
+class StockInitialData(ft.Container):
+    def __init__(self,text: str, label: str):
+        super().__init__()
+        self.label = label
+        self.text = text
+ 
+    def render(self):
+        return ft.Container(
+            width=120,
+            height=30,
+            border=ft.border.all(color="#ACACAC"),
+            border_radius=3,
+            bgcolor="#c3c3c3",
+            content=ft.Row(
+                controls=[
+                    ft.Text(self.label),
+                    ft.Text(self.text,color='#000000', weight=ft.FontWeight.BOLD, size=10)
+                ]
             )
-        ],
-        horizontal_alignment=CrossAxisAlignment.END
-    )
-
+        )
+        
+def main (page: ft.Page):
+    page.horizontal_alignment = 'center'
+    page.vertical_alignment = 'center'
+    page.fonts = {'NunitoSans': 'https://github.com/googlefonts/NunitoSans/tree/main/fonts/ttf/NunitoSans-Medium.ttf?raw=true'}
+    page.theme = ft.Theme(font_family='NunitoSans')
     
-    page_1 = Column(
-        controls=[
-            Container(
-                width=220,
-                height=650,
-                bgcolor=BGM,
-                padding=padding.only(top=50, left=20,right=20, bottom=5),
-                content=first_page_contents,
-                border_radius=BorderRadius(
-                    top_left=20,
-                    bottom_left=20,
-                    top_right=0,
-                    bottom_right=0
-                    )
-            )
-        ],
-        horizontal_alignment=CrossAxisAlignment.START
+    name_field = ft.Text(
+        size=36,
+        value='Vash San Juan',
+        color='#000000',
+        weight=ft.FontWeight.BOLD,
+        font_family='NunitoSans'
     )
     
-    container = Container(
-        content=Row(
+    first_column = ft.Container(
+        content=ft.Column(
             controls=[
-                Container(
-                    width=220,
-                    height=650,
-                    bgcolor=SBGM,
-                    content=page_1,
-                    border_radius=BorderRadius(
-                        top_left=20,
-                        bottom_left=20,
-                        top_right=0,
-                        bottom_right=0
-                    )
+                ft.Container(
+                    width=300,
+                    height=200,
+                    content=ft.Column(
+                        controls=[
+                            ft.Container(
+                                height=80,
+                                bgcolor="#785e5e",
+                                content=ft.Column(
+                                    controls=[
+
+                                    ]
+                                )
+                            ),
+                            ft.Container(
+                                height=100,
+                                padding=10,
+                                content=ft.Column(
+                                    controls=[
+                                        ft.Text(
+                                            value='Welcome!',
+                                            weight=ft.FontWeight.NORMAL,
+                                            size=24
+                                            ),
+                                        name_field
+                                    ]
+                                )
+                                
+                            )
+                        ] 
+                    ),
+                    padding=ft.padding.only(top=0,bottom=0,left=10,right=0)
                 ),
-                Container(
-                    width=1030,
-                    height=650,
-                    bgcolor='#ffffff',
-                    content=fundamentals
-                )    
+                ft.Container(
+                    content=ft.Column(
+                        controls=[
+                            ft.Container(
+                                content=ft.Row(
+                                    controls=[
+                                        ft.TextField(
+                                            width=150,
+                                            height=50,
+                                            color='#000000',
+                                            border_color=ft.Border('#000000'),
+                                            bgcolor="#B3B3B3",
+                                            focused_border_color="#000000",
+                                            cursor_color="#000000",
+                                            cursor_width=1,
+                                            label='Enter Stock',
+                                                label_style=ft.TextStyle(
+                                                    color='#000000',
+                                                    size=14,
+                                                )
+                                            ),
+                                        ft.ElevatedButton(
+                                            'Lock Symbol', 
+                                            width=100, 
+                                            height=50,
+                                            style=ft.ButtonStyle(
+                                                shape=ft.RoundedRectangleBorder(radius=5),
+                                                text_style=ft.TextStyle(size=15, weight=ft.FontWeight.W_100, color='#ffffff')
+                                                )
+                                            )
+                                    ]
+                                ),
+                                padding = ft.padding.only(top=15,left=20,right=20,bottom=20)
+                            ),
+                            StockFunctions(ft.Icons.BUSINESS,'Fundamentals').render(),
+                            StockFunctions(ft.Icons.STACKED_LINE_CHART,'Technicals').render(),
+                            StockFunctions(ft.Icons.LIBRARY_BOOKS_SHARP,'Dividend Report').render(),
+                            StockFunctions(ft.Icons.NEWSPAPER,'News').render(),
+                            StockFunctions(ft.Icons.INFO,'About the Company').render()
+                        ]
+                        
+                    ),
+                )
             ]
         ),
-        bgcolor=BGM,
-        border_radius=20,
+    )
+
+    container = ft.Container(
+        content = ft.Row(
+            controls = [
+                ft.Container(
+                    bgcolor="#DCD6D6",
+                    width=300,
+                    height=650,
+                    content=first_column
+                    ),
+                ft.Container(
+                    bgcolor="#171717",
+                    width=950,
+                    height=650,
+                    content=ft.Column(
+                            controls=[
+                                ft.Container(
+                                    width=950,
+                                    height=160,
+                                    content=ft.Row(
+                                        controls=[
+                                            ft.Container(width=10),
+                                            ft.Container(
+                                                content=ft.Column(
+                                                    controls=[
+                                                        ft.Container(),
+                                                            ft.Container(
+                                                                bgcolor="#f4f4f4",
+                                                                height=130,
+                                                                width=900,
+                                                                border_radius=(10),
+                                                                content=ft.Row(
+                                                                    controls=[
+                                                                        ft.CircleAvatar(
+                                                                            foreground_image_src='',
+                                                                            bgcolor='#333333',
+                                                                            radius=50
+                                                                        ),
+                                                                        ft.Container(
+                                                                            content=ft.Column(
+                                                                                width=330,
+                                                                                spacing=2,
+                                                                                controls=[
+                                                                                    ft.Text('Company Name Goes Here',size=24,weight=ft.FontWeight.BOLD,color='#000000'),
+                                                                                    ft.Text('Price Goes Here', size=20,weight=ft.FontWeight.W_500,color='#000000'),
+                                                                                    ft.Text('At close at text goes here', size=14, color="#9F9F9F"),
+                                                                                ]
+                                                                            ),
+                                                                        padding=ft.padding.only(top=20,bottom=0,left=0,right=20)
+                                                                        ),
+                                                                        ft.Container(
+                                                                            content=ft.Column(
+                                                                                controls=[
+                                                                                    StockInitialData('OPEN:', '').render(),
+                                                                                    StockInitialData('CLOSE:', '').render()
+                                                                                ]
+                                                                            ),
+                                                                        padding=ft.padding.only(top=30,bottom=0,left=0,right=0)
+                                                                        ),
+                                                                        ft.Container(
+                                                                            content=ft.Column(
+                                                                                controls=[
+                                                                                    StockInitialData('HIGH:', '').render(),
+                                                                                    StockInitialData('LOW:', '').render()
+                                                                                ]
+                                                                            ),
+                                                                        padding=ft.padding.only(top=30,bottom=0,left=0,right=0)
+                                                                        ),
+                                                                        ft.Container(
+                                                                            content=ft.Column(
+                                                                                controls=[
+                                                                                    StockInitialData('FOREIGN:', '').render(),
+                                                                                    StockInitialData('VOLUME:', '').render()
+                                                                                ]
+                                                                            ),
+                                                                        padding=ft.padding.only(top=30,bottom=0,left=0,right=0)
+                                                                        )                                                                                                                                                 
+                                                                    ],
+                                                                alignment=ft.CrossAxisAlignment.CENTER
+                                                                ),
+                                                            padding=ft.padding.only(left=20,right=0,top=0,bottom=0)
+                                                            ),
+                                                        ft.Container()
+                                                    ]
+                                                )
+                                                ),
+                                            ft.Container()
+                                        ]
+                                    )
+                                )
+                            ]
+                    )
+                )
+            ]
+        ),
+        bgcolor="#171717",
         width=1250,
         height=650
     )
-    
+
     page.add(container)
 
-app(target=main)
+ft.app(target=main)
