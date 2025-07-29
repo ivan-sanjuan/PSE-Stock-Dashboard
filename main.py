@@ -33,27 +33,27 @@ class StockFunctions(ft.Container):
             padding=ft.padding.only(20)
         )
         
-class StockInitialData(ft.Container):
-    def __init__(self,text: str, label: str):
-        super().__init__()
-        self.label_text = label
-        self.text_text = text
-        self.widget = ft.Container(
-            width=120,
-            height=30,
-            border=ft.border.all(color="#ACACAC"),
-            border_radius=3,
-            bgcolor="#c3c3c3",
-            content=ft.Row(
-                controls=[
-                    ft.Text(self.text_text,color='#000000', weight=ft.FontWeight.BOLD, size=10),
-                    ft.Text(self.label_text)
-                ]
-            )
-        )
+# class StockInitialData(ft.Container):
+#     def __init__(self,text: str, value):
+#         super().__init__()
+#         self.value = value
+#         self.text = text
+#         self.widget = ft.Container(
+#             width=120,
+#             height=30,
+#             border=ft.border.all(color="#ACACAC"),
+#             border_radius=3,
+#             bgcolor="#c3c3c3",
+#             content=ft.Row(
+#                 controls=[
+#                     ft.Text(self.text,color='#000000', weight=ft.FontWeight.BOLD, size=10),
+#                     ft.Text(self.value)
+#                 ]
+#             )
+#         )
 
-    def get_widget(self):
-        return self.widget
+#     def get_widget(self):
+#         return self.widget
         
 def main (page: ft.Page):
     page.horizontal_alignment = 'center'
@@ -67,7 +67,7 @@ def main (page: ft.Page):
                 content=ft.CircleAvatar(
                     foreground_image_src='',
                     bgcolor="#FFFFFF",
-                    radius=30
+                    radius=20
                     )
                 )
 
@@ -96,24 +96,38 @@ def main (page: ft.Page):
                     font_family='NunitoSans'
                     )
     
-    company_name = ft.Text('Company Name Goes Here',size=24,weight=ft.FontWeight.BOLD,color='#000000')
+    open_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
+    close_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)   
+    high_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)   
+    low_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
+    wk_high_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
+    wk_low_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
     
-    open_field = StockInitialData('OPEN:', '')
+    company_name = ft.Text('Company Name',size=20,weight=ft.FontWeight.BOLD,color='#000000')
+    latest_value = ft.Text('---', size=24,weight=ft.FontWeight.BOLD,color='#000000')
+    latest_date = ft.Text('At close at text goes here', size=14, color="#545454")
     
     def lock_stock_symbol(e):
         handle_symbol=symbol_handler(user_input.value).upper()
         image_url = get_company_logo(handle_symbol)
         avatar.foreground_image_src = image_url
         initial_data = get_initial_data(handle_symbol)
-        company_name.value = handle_symbol
-        open_value = initial_data.get('Open', 'N/A').strip()
+        company_name.value = initial_data.get('Company Name', 'N/A').strip()
+        latest_date.value = initial_data.get('Latest Date').strip()
+        open = initial_data.get('Open', 'N/A').strip()
         close = initial_data.get('Close', 'N/A').strip()
         high = initial_data.get('High', 'N/A').strip()
         low = initial_data.get('Low', 'N/A').strip()
         high_52 = initial_data.get('wk-high', 'N/A').strip()
         low_52 = initial_data.get('wk-low', 'N/A').strip()
-        open_field.text_text.value = open_value
-        open_field.get_widget().update
+        open_field.value = open
+        close_field.value = close
+        latest_value.value = close
+        high_field.value = high
+        low_field.value = low
+        wk_high_field.value = high_52
+        wk_low_field.value = low_52
+        
         if not initial_data:
             print(f"⚠️ Data retrieval failed for {handle_symbol}")
         
@@ -196,16 +210,16 @@ def main (page: ft.Page):
         content = ft.Row(
             controls = [
                 ft.Container(
-                    bgcolor="#DCD6D6",
+                    bgcolor="#CBDEEA",
                     width=300,
                     height=650,
-                    border_radius=10,
+                    border_radius=ft.border_radius.only(top_left=10,bottom_left=10,top_right=0,bottom_right=0),
                     content=first_column
                     ),
                 ft.Container(
-                    bgcolor="#171717",
                     width=950,
                     height=650,
+                    padding=ft.padding.only(left=10,bottom=0,top=20,right=0),
                     content=ft.Column(
                             controls=[
                                 ft.Container(
@@ -213,7 +227,6 @@ def main (page: ft.Page):
                                     height=160,
                                     content=ft.Row(
                                         controls=[
-                                            ft.Container(width=10),
                                             ft.Container(
                                                 content=ft.Column(
                                                     controls=[
@@ -232,8 +245,17 @@ def main (page: ft.Page):
                                                                                 spacing=2,
                                                                                 controls=[
                                                                                     company_name,                                                                                    
-                                                                                    ft.Text('Price Goes Here', size=20,weight=ft.FontWeight.W_500,color='#000000'),
-                                                                                    ft.Text('At close at text goes here', size=14, color="#9F9F9F"),
+                                                                                    ft.Container(
+                                                                                        width=30,
+                                                                                        content=ft.Row(
+                                                                                            width=50,
+                                                                                            controls=[
+                                                                                                ft.Text('₱', size=24,weight=ft.FontWeight.BOLD,color='#000000'),
+                                                                                                latest_value
+                                                                                            ]
+                                                                                        )
+                                                                                    ),
+                                                                                    latest_date,
                                                                                 ]
                                                                             ),
                                                                         padding=ft.padding.only(top=20,bottom=0,left=0,right=20)
@@ -241,8 +263,68 @@ def main (page: ft.Page):
                                                                         ft.Container(
                                                                             content=ft.Column(
                                                                                 controls=[
-                                                                                    open_field.get_widget(),
-                                                                                    StockInitialData('CLOSE:', '').get_widget()
+                                                                                    ft.Container(
+                                                                                    padding = ft.padding.only(left=5,top=0,right=0,bottom=0),
+                                                                                    width=120,
+                                                                                    height=30,
+                                                                                    border=ft.border.all(color="#ACACAC"),
+                                                                                    border_radius=3,
+                                                                                    bgcolor="#c3c3c3",
+                                                                                    content=ft.Row(
+                                                                                        controls=[
+                                                                                            ft.Text(value='OPEN:', color='#000000', weight=ft.FontWeight.BOLD, size=10),
+                                                                                            open_field
+                                                                                        ]
+                                                                                    )
+                                                                                ),
+                                                                                    ft.Container(
+                                                                                    padding = ft.padding.only(left=5,top=0,right=0,bottom=0),
+                                                                                    width=120,
+                                                                                    height=30,
+                                                                                    border=ft.border.all(color="#ACACAC"),
+                                                                                    border_radius=3,
+                                                                                    bgcolor="#c3c3c3",
+                                                                                    content=ft.Row(
+                                                                                        controls=[
+                                                                                            ft.Text(value='CLOSE:', color='#000000', weight=ft.FontWeight.BOLD, size=10),
+                                                                                            close_field
+                                                                                        ]
+                                                                                    )
+                                                                                )                                                                                ]
+                                                                            ),
+                                                                        padding=ft.padding.only(top=30,bottom=0,left=0,right=0)
+                                                                        ),
+                                                                        ft.Container(
+                                                                            content=ft.Column(
+                                                                                controls=[
+                                                                                    ft.Container(
+                                                                                    padding = ft.padding.only(left=5,top=0,right=0,bottom=0),
+                                                                                    width=120,
+                                                                                    height=30,
+                                                                                    border=ft.border.all(color="#ACACAC"),
+                                                                                    border_radius=3,
+                                                                                    bgcolor="#c3c3c3",
+                                                                                    content=ft.Row(
+                                                                                        controls=[
+                                                                                            ft.Text(value='HIGH:', color='#000000', weight=ft.FontWeight.BOLD, size=10),
+                                                                                            high_field
+                                                                                        ]
+                                                                                    )
+                                                                                ),
+                                                                                    ft.Container(
+                                                                                    padding = ft.padding.only(left=5,top=0,right=0,bottom=0),
+                                                                                    width=120,
+                                                                                    height=30,
+                                                                                    border=ft.border.all(color="#ACACAC"),
+                                                                                    border_radius=3,
+                                                                                    bgcolor="#c3c3c3",
+                                                                                    content=ft.Row(
+                                                                                        controls=[
+                                                                                            ft.Text(value='LOW:', color='#000000', weight=ft.FontWeight.BOLD, size=10),
+                                                                                            low_field
+                                                                                        ]
+                                                                                    )
+                                                                                )
                                                                                 ]
                                                                             ),
                                                                         padding=ft.padding.only(top=30,bottom=0,left=0,right=0)
@@ -250,17 +332,34 @@ def main (page: ft.Page):
                                                                         ft.Container(
                                                                             content=ft.Column(
                                                                                 controls=[
-                                                                                    StockInitialData('HIGH:', '').get_widget(),
-                                                                                    StockInitialData('LOW:', '').get_widget()
-                                                                                ]
-                                                                            ),
-                                                                        padding=ft.padding.only(top=30,bottom=0,left=0,right=0)
-                                                                        ),
-                                                                        ft.Container(
-                                                                            content=ft.Column(
-                                                                                controls=[
-                                                                                    StockInitialData('52wk HIGH:', '').get_widget(),
-                                                                                    StockInitialData('52wk LOW:', '').get_widget()
+                                                                                    ft.Container(
+                                                                                    padding = ft.padding.only(left=5,top=0,right=0,bottom=0),
+                                                                                    width=130,
+                                                                                    height=30,
+                                                                                    border=ft.border.all(color="#ACACAC"),
+                                                                                    border_radius=3,
+                                                                                    bgcolor="#c3c3c3",
+                                                                                    content=ft.Row(
+                                                                                        controls=[
+                                                                                            ft.Text(value='52wk-HIGH:', color='#000000', weight=ft.FontWeight.BOLD, size=10),
+                                                                                            wk_high_field
+                                                                                        ]
+                                                                                    )
+                                                                                ),
+                                                                                    ft.Container(
+                                                                                    padding = ft.padding.only(left=5,top=0,right=0,bottom=0),
+                                                                                    width=130,
+                                                                                    height=30,
+                                                                                    border=ft.border.all(color="#ACACAC"),
+                                                                                    border_radius=3,
+                                                                                    bgcolor="#c3c3c3",
+                                                                                    content=ft.Row(
+                                                                                        controls=[
+                                                                                            ft.Text(value='52wk-LOW:', color='#000000', weight=ft.FontWeight.BOLD, size=10),
+                                                                                            wk_low_field
+                                                                                        ]
+                                                                                    )
+                                                                                )
                                                                                 ]
                                                                             ),
                                                                         padding=ft.padding.only(top=30,bottom=0,left=0,right=0)
@@ -277,13 +376,21 @@ def main (page: ft.Page):
                                             ft.Container()
                                         ]
                                     )
+                                ),
+                                ft.Container(
+                                    bgcolor='#f4f4f4',
+                                    width=900,
+                                    height=435,
+                                    border_radius=(10)
+                                    
                                 )
                             ]
                     )
                 )
             ]
         ),
-        bgcolor="#171717",
+        bgcolor="#DCDCDC",
+        border_radius=(10),
         width=1250,
         height=650
     )
