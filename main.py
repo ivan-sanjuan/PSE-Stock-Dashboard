@@ -36,11 +36,9 @@ class StockFunctions(ft.Container):
 class StockInitialData(ft.Container):
     def __init__(self,text: str, label: str):
         super().__init__()
-        self.label = label
-        self.text = text
-
-    def render(self):
-        return ft.Container(
+        self.label_text = label
+        self.text_text = text
+        self.widget = ft.Container(
             width=120,
             height=30,
             border=ft.border.all(color="#ACACAC"),
@@ -48,11 +46,14 @@ class StockInitialData(ft.Container):
             bgcolor="#c3c3c3",
             content=ft.Row(
                 controls=[
-                    ft.Text(self.text,color='#000000', weight=ft.FontWeight.BOLD, size=10),
-                    ft.Text(self.label)
+                    ft.Text(self.text_text,color='#000000', weight=ft.FontWeight.BOLD, size=10),
+                    ft.Text(self.label_text)
                 ]
             )
         )
+
+    def get_widget(self):
+        return self.widget
         
 def main (page: ft.Page):
     page.horizontal_alignment = 'center'
@@ -95,23 +96,26 @@ def main (page: ft.Page):
                     font_family='NunitoSans'
                     )
     
-    open_field = StockInitialData('OPEN:', '').render()
+    company_name = ft.Text('Company Name Goes Here',size=24,weight=ft.FontWeight.BOLD,color='#000000')
+    
+    open_field = StockInitialData('OPEN:', '')
     
     def lock_stock_symbol(e):
         handle_symbol=symbol_handler(user_input.value).upper()
         image_url = get_company_logo(handle_symbol)
         avatar.foreground_image_src = image_url
         initial_data = get_initial_data(handle_symbol)
+        company_name.value = handle_symbol
         open_value = initial_data.get('Open', 'N/A').strip()
         close = initial_data.get('Close', 'N/A').strip()
         high = initial_data.get('High', 'N/A').strip()
         low = initial_data.get('Low', 'N/A').strip()
         high_52 = initial_data.get('wk-high', 'N/A').strip()
         low_52 = initial_data.get('wk-low', 'N/A').strip()
+        open_field.text_text.value = open_value
+        open_field.get_widget().update
         if not initial_data:
             print(f"⚠️ Data retrieval failed for {handle_symbol}")
-
-        
         
         page.update()
 
@@ -227,7 +231,7 @@ def main (page: ft.Page):
                                                                                 width=330,
                                                                                 spacing=2,
                                                                                 controls=[
-                                                                                    ft.Text('Company Name Goes Here',size=24,weight=ft.FontWeight.BOLD,color='#000000'),
+                                                                                    company_name,                                                                                    
                                                                                     ft.Text('Price Goes Here', size=20,weight=ft.FontWeight.W_500,color='#000000'),
                                                                                     ft.Text('At close at text goes here', size=14, color="#9F9F9F"),
                                                                                 ]
@@ -237,8 +241,8 @@ def main (page: ft.Page):
                                                                         ft.Container(
                                                                             content=ft.Column(
                                                                                 controls=[
-                                                                                    open_field,
-                                                                                    StockInitialData('CLOSE:', '').render()
+                                                                                    open_field.get_widget(),
+                                                                                    StockInitialData('CLOSE:', '').get_widget()
                                                                                 ]
                                                                             ),
                                                                         padding=ft.padding.only(top=30,bottom=0,left=0,right=0)
@@ -246,8 +250,8 @@ def main (page: ft.Page):
                                                                         ft.Container(
                                                                             content=ft.Column(
                                                                                 controls=[
-                                                                                    StockInitialData('HIGH:', '').render(),
-                                                                                    StockInitialData('LOW:', '').render()
+                                                                                    StockInitialData('HIGH:', '').get_widget(),
+                                                                                    StockInitialData('LOW:', '').get_widget()
                                                                                 ]
                                                                             ),
                                                                         padding=ft.padding.only(top=30,bottom=0,left=0,right=0)
@@ -255,8 +259,8 @@ def main (page: ft.Page):
                                                                         ft.Container(
                                                                             content=ft.Column(
                                                                                 controls=[
-                                                                                    StockInitialData('52wk HIGH:', '').render(),
-                                                                                    StockInitialData('52wk LOW:', '').render()
+                                                                                    StockInitialData('52wk HIGH:', '').get_widget(),
+                                                                                    StockInitialData('52wk LOW:', '').get_widget()
                                                                                 ]
                                                                             ),
                                                                         padding=ft.padding.only(top=30,bottom=0,left=0,right=0)
