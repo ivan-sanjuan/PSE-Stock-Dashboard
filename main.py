@@ -19,12 +19,12 @@ class StockFunctions(ft.Container):
             content=ft.ElevatedButton(
                 width=260,
                 height=40,
-                bgcolor="#1F2134",
+                bgcolor="#FFFFFF",
                 on_click=self.on_click,
                 style=ft.ButtonStyle(
                     shape=ft.RoundedRectangleBorder(radius=8),
                     text_style=ft.TextStyle(size=16, weight=ft.FontWeight.NORMAL),
-                    color='#ffffff'
+                    color='#1F2134'
                 ),
                 content=ft.Row(
                     controls=[
@@ -59,8 +59,6 @@ class StockFunctions(ft.Container):
 #     def get_widget(self):
 #         return self.widget
 
-
-
 def main (page: ft.Page):
     page.horizontal_alignment = 'center'
     page.vertical_alignment = 'center'
@@ -80,10 +78,10 @@ def main (page: ft.Page):
     user_input = ft.TextField(
                     width=150,
                     height=50,
-                    color='#000000',
-                    border_color=ft.Border('#000000'),
+                    color="#000000",
+                    border_color=ft.Border("#FFFFFF"),
                     bgcolor="#B3B3B3",
-                    focused_border_color="#000000",
+                    focused_border_color="#FFFFFF",
                     cursor_color="#000000",
                     cursor_width=1,
                     label='Enter Stock',
@@ -97,7 +95,7 @@ def main (page: ft.Page):
     name_field = ft.Text(
                     size=36,
                     value='Ivan San Juan',
-                    color='#000000',
+                    color="#FFFFFF",
                     weight=ft.FontWeight.BOLD,
                     font_family='NunitoSans'
                     )
@@ -155,7 +153,7 @@ def main (page: ft.Page):
             data_row_color={ft.ControlState.HOVERED: "0x30CCCCCC"},
             show_checkbox_column=True,
             border=ft.border.all(1, ft.Colors.GREY),
-            border_radius=ft.border_radius.all(10),
+
             width=900,
         )
         dividend_output_column.controls.clear()
@@ -177,9 +175,11 @@ def main (page: ft.Page):
                     width=100, 
                     height=50,
                     on_click=lock_stock_symbol,
+                    color='#1F2134',
+                    bgcolor="#f0b981",
                     style=ft.ButtonStyle(
                         shape=ft.RoundedRectangleBorder(radius=5),
-                        text_style=ft.TextStyle(size=15, weight=ft.FontWeight.W_100, color='#ffffff')
+                        text_style=ft.TextStyle(size=15, weight=ft.FontWeight.W_300, color="#000000")
                         )
                     )
     
@@ -195,9 +195,6 @@ def main (page: ft.Page):
                                 height=80,
                                 bgcolor="#785e5e",
                                 content=ft.Column(
-                                    controls=[
-
-                                    ]
                                 )
                             ),
                             ft.Container(
@@ -207,7 +204,7 @@ def main (page: ft.Page):
                                     controls=[
                                         ft.Text(
                                             value='Welcome!',
-                                            color='#000000',
+                                            color="#FFFFFF",
                                             weight=ft.FontWeight.NORMAL,
                                             size=24
                                             ),
@@ -249,7 +246,7 @@ def main (page: ft.Page):
         content = ft.Row(
             controls = [
                 ft.Container(
-                    bgcolor="#CBDEEA",
+                    bgcolor="#111324",
                     width=300,
                     height=650,
                     border_radius=ft.border_radius.only(top_left=10,bottom_left=10,top_right=0,bottom_right=0),
@@ -429,7 +426,7 @@ def main (page: ft.Page):
                 )
             ]
         ),
-        bgcolor="#DCDCDC",
+        bgcolor="#1F2134",
         border_radius=(10),
         width=1250,
         height=650
