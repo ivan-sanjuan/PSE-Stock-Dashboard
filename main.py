@@ -4,12 +4,15 @@ from apps.stats_news_scraper import get_news
 from apps.initial_data_scraper import get_initial_data
 from apps.logo_scraper import get_company_logo
 from apps.stock_utils import symbol_handler
+from apps.div_yield import search_div
+import pandas as pd
 
 class StockFunctions(ft.Container):
-    def __init__ (self, icon: str, label: str):
+    def __init__ (self, icon: str, label: str, on_click=None):
         super().__init__()
         self.icon = icon
         self.label = label
+        self.on_click = on_click
         
     def render(self):
         return ft.Container(
@@ -17,6 +20,7 @@ class StockFunctions(ft.Container):
                 width=260,
                 height=40,
                 bgcolor="#1F2134",
+                on_click=self.on_click,
                 style=ft.ButtonStyle(
                     shape=ft.RoundedRectangleBorder(radius=8),
                     text_style=ft.TextStyle(size=16, weight=ft.FontWeight.NORMAL),
@@ -25,7 +29,7 @@ class StockFunctions(ft.Container):
                 content=ft.Row(
                     controls=[
                         ft.Icon(self.icon),
-                        ft.Text(self.label)
+                        ft.Text(self.label),
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 )
@@ -54,7 +58,9 @@ class StockFunctions(ft.Container):
 
 #     def get_widget(self):
 #         return self.widget
-        
+
+
+
 def main (page: ft.Page):
     page.horizontal_alignment = 'center'
     page.vertical_alignment = 'center'
@@ -132,7 +138,40 @@ def main (page: ft.Page):
             print(f"⚠️ Data retrieval failed for {handle_symbol}")
         
         page.update()
+        
+    def generate_dividend_report(e):
+        handle_symbol=symbol_handler(user_input.value).upper()
+        df = search_div(handle_symbol)
+        dividend_table = ft.DataTable(
+            columns = [ft.DataColumn(ft.Text(col)) for col in df.columns],
+            rows = [
+                ft.DataRow(
+                    cells=[ft.DataCell(ft.Text(str(row[col]),color='#1F2134')) for col in df.columns]
+                )
+                for _ , row in df.iterrows()
+            ],
+            column_spacing=20,
+            heading_row_color='#1F2134',
+            data_row_color={ft.ControlState.HOVERED: "0x30CCCCCC"},
+            show_checkbox_column=True,
+            border=ft.border.all(1, ft.Colors.GREY),
+            border_radius=ft.border_radius.all(10),
+            width=900,
+        )
+        dividend_output_column.controls.clear()
+        dividend_output_column.controls.append(dividend_table)
+        page.update()
 
+    dividend_output_column = ft.Column(
+    controls=[],
+    width=900,
+    height=435,
+    scroll="auto"
+    )
+
+    
+    button_dividend_report = StockFunctions(ft.Icons.LIBRARY_BOOKS_SHARP,'Dividend Report', on_click=generate_dividend_report)
+    
     lock_stock = ft.ElevatedButton(
                     'Lock Symbol', 
                     width=100, 
@@ -195,7 +234,7 @@ def main (page: ft.Page):
                             ),
                             StockFunctions(ft.Icons.BUSINESS,'Fundamentals').render(),
                             StockFunctions(ft.Icons.STACKED_LINE_CHART,'Technicals').render(),
-                            StockFunctions(ft.Icons.LIBRARY_BOOKS_SHARP,'Dividend Report').render(),
+                            button_dividend_report.render(),
                             StockFunctions(ft.Icons.NEWSPAPER,'News').render(),
                             StockFunctions(ft.Icons.INFO,'About the Company').render()
                         ]
@@ -381,7 +420,8 @@ def main (page: ft.Page):
                                     bgcolor='#f4f4f4',
                                     width=900,
                                     height=435,
-                                    border_radius=(10)
+                                    border_radius=(10),
+                                    content=dividend_output_column
                                     
                                 )
                             ]
