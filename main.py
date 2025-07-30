@@ -88,7 +88,9 @@ def main (page: ft.Page):
         wk_high_field.value = high_52
         wk_low_field.value = low_52
         if not initial_data:
+            output_section.controls.clear()
             print(f"⚠️ Data retrieval failed for {handle_symbol}")
+        output_section.controls.clear()
         page.update()
         
     def generate_dividend_report(e):
@@ -115,30 +117,64 @@ def main (page: ft.Page):
         
     def get_revenue_report(e):
         handle_symbol=symbol_handler(user_input.value).upper()
-        rev_summary = get_revenue_history(handle_symbol)
-        col_headers = list(rev_summary.columns)
-        row_values = rev_summary.values.tolist()
+        df = get_revenue_history(handle_symbol)
+        revenue_summary = get_revenue(handle_symbol)
+        total_revenue = revenue_summary.get('Total Revenue')
+        revenue_growth = revenue_summary.get('Revenue Growth')
+        revenue_per_employee = revenue_summary.get('Revenue per Employee')
+        total_employees = revenue_summary.get('Total Employees')
+        market_cap = revenue_summary.get('Market Cap')
+        
+        total_revenue_widget = ft.Text('', color='#000000',size=32)
+        total_revenue_widget.value = total_revenue
+        
+        def headers (df : pd.DataFrame):
+            return [ft.DataColumn(ft.Text(col)) for col in df.columns]
+        
+        def rows(df : pd.DataFrame):
+            rows = []
+            for index, row in df.iterrows():
+                row_cells = [
+                ft.DataCell(ft.Text(str(row[header]), color='#1F2134'))
+                for header in df.columns
+                ]
+                rows.append(ft.DataRow(cells=row_cells))
+
+            return rows
+        
         revenue_history_table = ft.Container(
-            width=900,
-            height=100,
-            bgcolor='#000000'
-        )
-        ft.DataTable(
-            columns = [ft.DataColumn(ft.Text(col)) for col in col_headers],
-            rows = [
-                ft.DataRow(
-                    cells=[ft.DataCell(ft.Text(str(cell),color='#1F2134')) for cell in row]
+            content=ft.Column(
+                controls=[
+                ft.Container(
+                height=125,
+                width=900,
+                content=ft.Row(
+                    controls=[
+                        ft.Column(
+                            controls=[
+                                ft.Text('Total Revenue', color='#000000', size='20'),
+                                total_revenue_widget
+                            ]
+                        )
+                    ]
                 )
-                for row in row_values
-            ],
-            column_spacing=20,
-            heading_row_color='#1F2134',
-            data_row_color={ft.ControlState.HOVERED: "0x30CCCCCC"},
-            show_checkbox_column=True,
-            border=ft.border.all(1, ft.Colors.GREY),
-            height=335,
-            width=900,
+                ),
+            ft.DataTable(
+                columns=headers(df),
+                rows=rows(df),
+                column_spacing=20,
+                heading_row_color='#1F2134',
+                data_row_color={ft.ControlState.HOVERED: "0x30CCCCCC"},
+                show_checkbox_column=True,
+                border=ft.border.all(1, ft.Colors.GREY),
+                height=300,
+                width=900,
+            )
+                ]
+            )
+
         )
+        
         output_section.controls.clear()
         output_section.controls.append(revenue_history_table)
         page.update()
