@@ -5,6 +5,8 @@ from apps.initial_data_scraper import get_initial_data
 from apps.logo_scraper import get_company_logo
 from apps.stock_utils import symbol_handler
 from apps.div_yield import search_div
+from apps.revenue_scraper import get_revenue
+from apps.revenue_scraper import get_revenue_history
 import pandas as pd
 
 class StockFunctions(ft.Container):
@@ -65,52 +67,6 @@ def main (page: ft.Page):
     page.fonts = {'NunitoSans': 'https://github.com/googlefonts/NunitoSans/tree/main/fonts/ttf/NunitoSans-Medium.ttf?raw=true'}
     page.theme = ft.Theme(font_family='NunitoSans')
     
-    avatar = ft.CircleAvatar(
-                bgcolor="#FFFFFF",
-                radius=50,
-                content=ft.CircleAvatar(
-                    foreground_image_src='',
-                    bgcolor="#FFFFFF",
-                    radius=20
-                    )
-                )
-
-    user_input = ft.TextField(
-                    width=150,
-                    height=50,
-                    color="#000000",
-                    border_color=ft.Border("#FFFFFF"),
-                    bgcolor="#B3B3B3",
-                    focused_border_color="#FFFFFF",
-                    cursor_color="#000000",
-                    cursor_width=1,
-                    label='Enter Stock',
-                    value='',
-                        label_style=ft.TextStyle(
-                            color='#000000',
-                            size=14,
-                        )
-                    )
-    
-    name_field = ft.Text(
-                    size=36,
-                    value='Ivan San Juan',
-                    color="#FFFFFF",
-                    weight=ft.FontWeight.BOLD,
-                    font_family='NunitoSans'
-                    )
-    
-    open_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
-    close_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)   
-    high_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)   
-    low_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
-    wk_high_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
-    wk_low_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
-    
-    company_name = ft.Text('Company Name',size=20,weight=ft.FontWeight.BOLD,color='#000000')
-    latest_value = ft.Text('---', size=24,weight=ft.FontWeight.BOLD,color='#000000')
-    latest_date = ft.Text('At close at text goes here', size=14, color="#545454")
-    
     def lock_stock_symbol(e):
         handle_symbol=symbol_handler(user_input.value).upper()
         image_url = get_company_logo(handle_symbol)
@@ -131,10 +87,8 @@ def main (page: ft.Page):
         low_field.value = low
         wk_high_field.value = high_52
         wk_low_field.value = low_52
-        
         if not initial_data:
             print(f"⚠️ Data retrieval failed for {handle_symbol}")
-        
         page.update()
         
     def generate_dividend_report(e):
@@ -153,22 +107,72 @@ def main (page: ft.Page):
             data_row_color={ft.ControlState.HOVERED: "0x30CCCCCC"},
             show_checkbox_column=True,
             border=ft.border.all(1, ft.Colors.GREY),
-
             width=900,
         )
-        dividend_output_column.controls.clear()
-        dividend_output_column.controls.append(dividend_table)
+        output_section.controls.clear()
+        output_section.controls.append(dividend_table)
+        page.update()
+        
+    def get_revenue_report(e):
+        handle_symbol=symbol_handler(user_input.value).upper()
+        rev_summary = get_revenue_history(handle_symbol)
+        col_headers = list(rev_summary.columns)
+        row_values = rev_summary.values.tolist()
+        revenue_history_table = ft.Container(
+            width=900,
+            height=100,
+            bgcolor='#000000'
+        )
+        ft.DataTable(
+            columns = [ft.DataColumn(ft.Text(col)) for col in col_headers],
+            rows = [
+                ft.DataRow(
+                    cells=[ft.DataCell(ft.Text(str(cell),color='#1F2134')) for cell in row]
+                )
+                for row in row_values
+            ],
+            column_spacing=20,
+            heading_row_color='#1F2134',
+            data_row_color={ft.ControlState.HOVERED: "0x30CCCCCC"},
+            show_checkbox_column=True,
+            border=ft.border.all(1, ft.Colors.GREY),
+            height=335,
+            width=900,
+        )
+        output_section.controls.clear()
+        output_section.controls.append(revenue_history_table)
         page.update()
 
-    dividend_output_column = ft.Column(
-    controls=[],
-    width=900,
-    height=435,
-    scroll="auto"
-    )
+#-------------------------------------------VARIABLES-------------------------------------------#
 
-    
+    button_revenue_report = StockFunctions(ft.Icons.STACKED_LINE_CHART,'Revenue Report', on_click=get_revenue_report)
     button_dividend_report = StockFunctions(ft.Icons.LIBRARY_BOOKS_SHARP,'Dividend Report', on_click=generate_dividend_report)
+
+    open_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
+    close_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)   
+    high_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)   
+    low_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
+    wk_high_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
+    wk_low_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
+    company_name = ft.Text('Company Name',size=20,weight=ft.FontWeight.BOLD,color='#000000')
+    latest_value = ft.Text('---', size=24,weight=ft.FontWeight.BOLD,color='#000000')
+    latest_date = ft.Text('At close at text goes here', size=14, color="#545454")
+
+    output_section = ft.Column(
+                        controls=[],
+                        width=900,
+                        height=435,
+                        scroll="auto"
+                    )
+    
+    
+    dividend_report_section = ft.Container(
+                                    bgcolor='#f4f4f4',
+                                    width=900,
+                                    height=435,
+                                    border_radius=(10),
+                                    content=output_section
+                                )
     
     lock_stock = ft.ElevatedButton(
                     'Lock Symbol', 
@@ -176,13 +180,49 @@ def main (page: ft.Page):
                     height=50,
                     on_click=lock_stock_symbol,
                     color='#1F2134',
-                    bgcolor="#f0b981",
+                    bgcolor="#8EC63F",
                     style=ft.ButtonStyle(
                         shape=ft.RoundedRectangleBorder(radius=5),
-                        text_style=ft.TextStyle(size=15, weight=ft.FontWeight.W_300, color="#000000")
+                        text_style=ft.TextStyle(size=14, weight=ft.FontWeight.W_500, color="#000000")
                         )
                     )
     
+    avatar = ft.CircleAvatar(
+                bgcolor="#FFFFFF",
+                radius=50,
+                content=ft.CircleAvatar(
+                    foreground_image_src='',
+                    bgcolor="#FFFFFF",
+                    radius=20
+                    )
+                )
+
+    user_input = ft.TextField(
+                    width=150,
+                    height=50,
+                    color="#000000",
+                    border_color=ft.Border(1,"#FFFFFF"),
+                    bgcolor="#B3B3B3",
+                    focused_border_color="#FFFFFF",
+                    cursor_color="#000000",
+                    cursor_width=1,
+                    label='Enter Stock',
+                    value='',
+                        label_style=ft.TextStyle(
+                            color='#000000',
+                            size=14,
+                        )
+                    )
+    
+    name_field = ft.Text(
+                    size=36,
+                    value='Ivan San Juan',
+                    color="#8EC63F",
+                    weight=ft.FontWeight.BOLD,
+                    font_family='NunitoSans'
+                    )
+    
+    #-------------------------------------------START OF UI-------------------------------------------#
     first_column = ft.Container(
         content=ft.Column(
             controls=[
@@ -230,7 +270,7 @@ def main (page: ft.Page):
                                 padding = ft.padding.only(top=15,left=20,right=20,bottom=20)
                             ),
                             StockFunctions(ft.Icons.BUSINESS,'Fundamentals').render(),
-                            StockFunctions(ft.Icons.STACKED_LINE_CHART,'Technicals').render(),
+                            button_revenue_report.render(),
                             button_dividend_report.render(),
                             StockFunctions(ft.Icons.NEWSPAPER,'News').render(),
                             StockFunctions(ft.Icons.INFO,'About the Company').render()
@@ -246,7 +286,7 @@ def main (page: ft.Page):
         content = ft.Row(
             controls = [
                 ft.Container(
-                    bgcolor="#111324",
+                    bgcolor="#0F0F0F",
                     width=300,
                     height=650,
                     border_radius=ft.border_radius.only(top_left=10,bottom_left=10,top_right=0,bottom_right=0),
@@ -413,20 +453,13 @@ def main (page: ft.Page):
                                         ]
                                     )
                                 ),
-                                ft.Container(
-                                    bgcolor='#f4f4f4',
-                                    width=900,
-                                    height=435,
-                                    border_radius=(10),
-                                    content=dividend_output_column
-                                    
-                                )
+                                dividend_report_section
                             ]
                     )
                 )
             ]
         ),
-        bgcolor="#1F2134",
+        bgcolor="#1B1B1B",
         border_radius=(10),
         width=1250,
         height=650
