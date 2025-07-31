@@ -39,7 +39,7 @@ def get_revenue(symbol):
     
     market_cap = None            
     for line in figures_revenue:
-        if 'Employees ' in line:
+        if 'Market Cap ' in line:
             for value in line:
                 market_cap = value.text
     
@@ -64,5 +64,5 @@ def get_revenue_history(symbol):
     return df_deprecated
 
 # name='BPI'
-# test = get_revenue_history(name)
+# test = get_revenue(name)
 # pprint.pprint(test)

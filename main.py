@@ -125,8 +125,20 @@ def main (page: ft.Page):
         total_employees = revenue_summary.get('Total Employees')
         market_cap = revenue_summary.get('Market Cap')
         
-        total_revenue_widget = ft.Text('', color='#000000',size=32)
+        total_revenue_widget = ft.Text('', color='#000000',size=44,weight=ft.FontWeight.BOLD)
         total_revenue_widget.value = total_revenue
+        
+        revenue_growth_widget = ft.Text('', color='#000000', size=24, weight=ft.FontWeight.BOLD)
+        revenue_growth_widget.value = revenue_growth
+        
+        revenue_per_employee_widget = ft.Text('', color='#000000', size=24, weight=ft.FontWeight.BOLD)
+        revenue_per_employee_widget.value = revenue_per_employee
+        
+        total_employees_widget = ft.Text('', color='#000000', size=24, weight=ft.FontWeight.BOLD)
+        total_employees_widget.value = total_employees
+        
+        market_cap_widget = ft.Text('', color='#000000', size=24, weight=ft.FontWeight.BOLD)
+        market_cap_widget.value = market_cap
         
         def headers (df : pd.DataFrame):
             return [ft.DataColumn(ft.Text(col)) for col in df.columns]
@@ -145,20 +157,103 @@ def main (page: ft.Page):
         revenue_history_table = ft.Container(
             content=ft.Column(
                 controls=[
-                ft.Container(
-                height=125,
-                width=900,
-                content=ft.Row(
-                    controls=[
-                        ft.Column(
+                    ft.Container(     
+                    padding=ft.padding.only(left=30, top=0, right=0, bottom=0),          
+                    height=125,
+                    width=900,
+                        content=ft.Row(  
+                            alignment = ft.CrossAxisAlignment.CENTER,                                                      
                             controls=[
-                                ft.Text('Total Revenue', color='#000000', size='20'),
-                                total_revenue_widget
+                                ft.Column(                                    
+                                    alignment = ft.MainAxisAlignment.CENTER,
+                                    spacing=0,
+                                    controls=[
+                                        ft.Text('Total Revenue:', color='#000000', size=20),
+                                        total_revenue_widget
+                                    ]
+                                ),
+                                ft.Container(width=10),
+                                ft.Container(
+                                    padding=ft.padding.all(10),
+                                    content=ft.Column(
+                                        alignment=ft.MainAxisAlignment.CENTER,
+                                        spacing=0,
+                                        controls=[
+                                            ft.Container(height=5),
+                                            ft.Container(
+                                                bgcolor="#DFDFDF",
+                                                border_radius=5,
+                                                border=ft.border.all(color="#ACACAC"),
+                                                width=300,
+                                                height=40,
+                                                content=ft.Row(
+                                                    alignment=ft.CrossAxisAlignment.CENTER,
+                                                    controls=[
+                                                        ft.Text(' Revenue Growth: ', color="#555555", size=16),
+                                                        revenue_growth_widget
+                                                    ]
+                                                )
+                                            ),
+                                            ft.Container(height=10),
+                                            ft.Container(
+                                                bgcolor="#DFDFDF",
+                                                border_radius=5,
+                                                border=ft.border.all(color="#ACACAC"),
+                                                width=300,
+                                                height=40,
+                                                content=ft.Row(
+                                                    alignment=ft.CrossAxisAlignment.CENTER,  
+                                                    controls=[
+                                                        ft.Text(' Revenue per Employee: ', color='#555555', size=16),
+                                                        revenue_per_employee_widget
+                                                    ]
+                                                )
+                                            )
+                                        ]
+                                    )
+                                ),
+                                ft.Container(
+                                    padding=ft.padding.all(10),
+                                    content=ft.Column(                                        
+                                        alignment=ft.MainAxisAlignment.CENTER,
+                                        spacing=0,
+                                        controls=[
+                                            ft.Container(height=5),
+                                            ft.Container(
+                                                bgcolor="#DFDFDF",
+                                                border_radius=5,
+                                                border=ft.border.all(color="#ACACAC"),
+                                                width=300,
+                                                height=40,
+                                                content=ft.Row(
+                                                    alignment=ft.CrossAxisAlignment.CENTER,
+                                                    controls=[
+                                                        ft.Text(' Total Employees: ', color="#555555", size=16),
+                                                        total_employees_widget
+                                                    ]
+                                                )
+                                            ),
+                                            ft.Container(height=10),
+                                            ft.Container(
+                                                bgcolor="#DFDFDF",
+                                                border_radius=5,
+                                                border=ft.border.all(color="#ACACAC"),
+                                                width=300,
+                                                height=40,
+                                                content=ft.Row(
+                                                    alignment=ft.CrossAxisAlignment.CENTER,  
+                                                    controls=[
+                                                        ft.Text(' Market Cap: ', color='#555555', size=16),
+                                                        market_cap_widget
+                                                    ]
+                                                )
+                                            )
+                                        ]
+                                    )
+                                )                                
                             ]
                         )
-                    ]
-                )
-                ),
+                    ),
             ft.DataTable(
                 columns=headers(df),
                 rows=rows(df),
@@ -381,7 +476,7 @@ def main (page: ft.Page):
                                                                                     height=30,
                                                                                     border=ft.border.all(color="#ACACAC"),
                                                                                     border_radius=3,
-                                                                                    bgcolor="#c3c3c3",
+                                                                                    bgcolor="#DFDFDF",
                                                                                     content=ft.Row(
                                                                                         controls=[
                                                                                             ft.Text(value='OPEN:', color='#000000', weight=ft.FontWeight.BOLD, size=10),
@@ -395,7 +490,7 @@ def main (page: ft.Page):
                                                                                     height=30,
                                                                                     border=ft.border.all(color="#ACACAC"),
                                                                                     border_radius=3,
-                                                                                    bgcolor="#c3c3c3",
+                                                                                    bgcolor="#DFDFDF",
                                                                                     content=ft.Row(
                                                                                         controls=[
                                                                                             ft.Text(value='CLOSE:', color='#000000', weight=ft.FontWeight.BOLD, size=10),
@@ -415,7 +510,7 @@ def main (page: ft.Page):
                                                                                     height=30,
                                                                                     border=ft.border.all(color="#ACACAC"),
                                                                                     border_radius=3,
-                                                                                    bgcolor="#c3c3c3",
+                                                                                    bgcolor="#DFDFDF",
                                                                                     content=ft.Row(
                                                                                         controls=[
                                                                                             ft.Text(value='HIGH:', color='#000000', weight=ft.FontWeight.BOLD, size=10),
@@ -429,7 +524,7 @@ def main (page: ft.Page):
                                                                                     height=30,
                                                                                     border=ft.border.all(color="#ACACAC"),
                                                                                     border_radius=3,
-                                                                                    bgcolor="#c3c3c3",
+                                                                                    bgcolor="#DFDFDF",
                                                                                     content=ft.Row(
                                                                                         controls=[
                                                                                             ft.Text(value='LOW:', color='#000000', weight=ft.FontWeight.BOLD, size=10),
@@ -450,7 +545,7 @@ def main (page: ft.Page):
                                                                                     height=30,
                                                                                     border=ft.border.all(color="#ACACAC"),
                                                                                     border_radius=3,
-                                                                                    bgcolor="#c3c3c3",
+                                                                                    bgcolor="#DFDFDF",
                                                                                     content=ft.Row(
                                                                                         controls=[
                                                                                             ft.Text(value='52wk-HIGH:', color='#000000', weight=ft.FontWeight.BOLD, size=10),
@@ -464,7 +559,7 @@ def main (page: ft.Page):
                                                                                     height=30,
                                                                                     border=ft.border.all(color="#ACACAC"),
                                                                                     border_radius=3,
-                                                                                    bgcolor="#c3c3c3",
+                                                                                    bgcolor="#DFDFDF",
                                                                                     content=ft.Row(
                                                                                         controls=[
                                                                                             ft.Text(value='52wk-LOW:', color='#000000', weight=ft.FontWeight.BOLD, size=10),
