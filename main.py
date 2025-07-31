@@ -1,12 +1,13 @@
 import flet as ft
+import webbrowser
 from apps.stats_scraper import get_stats
-from apps.stats_news_scraper import get_news
 from apps.initial_data_scraper import get_initial_data
 from apps.logo_scraper import get_company_logo
 from apps.stock_utils import symbol_handler
 from apps.div_yield import search_div
 from apps.revenue_scraper import get_revenue
 from apps.revenue_scraper import get_revenue_history
+from apps.stats_news_scraper import get_news
 import pandas as pd
 
 class StockFunctions(ft.Container):
@@ -38,28 +39,6 @@ class StockFunctions(ft.Container):
             ),
             padding=ft.padding.only(20)
         )
-        
-# class StockInitialData(ft.Container):
-#     def __init__(self,text: str, value):
-#         super().__init__()
-#         self.value = value
-#         self.text = text
-#         self.widget = ft.Container(
-#             width=120,
-#             height=30,
-#             border=ft.border.all(color="#ACACAC"),
-#             border_radius=3,
-#             bgcolor="#c3c3c3",
-#             content=ft.Row(
-#                 controls=[
-#                     ft.Text(self.text,color='#000000', weight=ft.FontWeight.BOLD, size=10),
-#                     ft.Text(self.value)
-#                 ]
-#             )
-#         )
-
-#     def get_widget(self):
-#         return self.widget
 
 def main (page: ft.Page):
     page.horizontal_alignment = 'center'
@@ -274,10 +253,61 @@ def main (page: ft.Page):
         output_section.controls.append(revenue_history_table)
         page.update()
 
+    def get_latest_news(e):
+        handle_symbol = symbol_handler(user_input.value).upper()
+        news_result = get_news(handle_symbol)
+        date = news_result.get('date')
+        news_title = news_result.get('title')
+        summary = news_result.get('summary')
+        featured_image = news_result.get('img')
+        news_link = news_result.get('news_link')
+        
+        def open_website(e):
+            webbrowser.open(news_link)
+        
+        news_date_widget = ft.Text('', size=12, color='#333333')
+        news_title_widget = ft.Text('', size=24, color='#000000', weight=ft.FontWeight.BOLD)
+        news_summary_widget = ft.Text('', size=16, color='#000000')
+        news_featured_image_widget = ft.Image(src='', height=200, width=300, fit=ft.ImageFit.COVER)
+        news_link_widget = ft.ElevatedButton(text='READ MORE', icon=ft.Icons.OPEN_IN_BROWSER, on_click=open_website)
+        
+        news_date_widget.value = date
+        news_title_widget.value = news_title
+        news_summary_widget.value = summary
+        news_featured_image_widget.src = featured_image
+        
+        news_section = ft.Container(
+            padding=ft.padding.all(10),
+            width=900,
+            height=435,
+            content=ft.Row(
+                controls=[
+                    news_featured_image_widget,
+                    ft.Container(
+                        content=ft.Column(
+                            controls=[
+                                news_date_widget,
+                                news_title_widget,
+                                news_summary_widget,
+                                news_link_widget
+                            ]
+                        )
+                    )
+                ]
+            )
+        )
+        output_section.controls.clear()
+        output_section.controls.append(news_section)
+        page.update()
+    
+    
+
+
 #-------------------------------------------VARIABLES-------------------------------------------#
 
     button_revenue_report = StockFunctions(ft.Icons.STACKED_LINE_CHART,'Revenue Report', on_click=get_revenue_report)
     button_dividend_report = StockFunctions(ft.Icons.LIBRARY_BOOKS_SHARP,'Dividend Report', on_click=generate_dividend_report)
+    button_news_report = StockFunctions(ft.Icons.NEWSPAPER,'News', on_click=get_news)
 
     open_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
     close_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)   
@@ -354,6 +384,7 @@ def main (page: ft.Page):
                     )
     
     #-------------------------------------------START OF UI-------------------------------------------#
+    
     first_column = ft.Container(
         content=ft.Column(
             controls=[
@@ -403,7 +434,7 @@ def main (page: ft.Page):
                             StockFunctions(ft.Icons.BUSINESS,'Fundamentals').render(),
                             button_revenue_report.render(),
                             button_dividend_report.render(),
-                            StockFunctions(ft.Icons.NEWSPAPER,'News').render(),
+                            button_news_report.render(),
                             StockFunctions(ft.Icons.INFO,'About the Company').render()
                         ]
                         

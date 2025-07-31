@@ -62,7 +62,3 @@ def get_revenue_history(symbol):
     print('getting revenue 5-Year history...')
     
     return df_deprecated
-
-# name='BPI'
-# test = get_revenue(name)
-# pprint.pprint(test)
