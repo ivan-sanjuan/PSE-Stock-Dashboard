@@ -298,5 +298,299 @@
     "stock_symbol": "C",
     "cmpy_id": "669",
     "security_id": "636"
+  },
+  {
+    "company_name": "Concrete Aggregates Corporation",
+    "stock_symbol": "CA",
+    "cmpy_id": "213",
+    "security_id": "361"
+  },
+  {
+    "company_name": "Central Azucarera de Tarlac, Inc.",
+    "stock_symbol": "CAT",
+    "cmpy_id": "183",
+    "security_id": "366"
+  },
+  {
+    "company_name": "China Banking Corporation",
+    "stock_symbol": "CBC",
+    "cmpy_id": "184",
+    "security_id": "104"
+  },
+  {
+    "company_name": "Cityland Development Corporation",
+    "stock_symbol": "CDC",
+    "cmpy_id": "39",
+    "security_id": "297"
+  },
+  {
+    "company_name": "Cebu Air, Inc.",
+    "stock_symbol": "CEB",
+    "cmpy_id": "624",
+    "security_id": "560"
+  },
+  {
+    "company_name": "Crown Equities, Inc.",
+    "stock_symbol": "CEI",
+    "cmpy_id": "186",
+    "security_id": "191"
+  },
+  {
+    "company_name": "Centro Escolar University",
+    "stock_symbol": "CEU",
+    "cmpy_id": "223",
+    "security_id": "291"
+  },
+  {
+    "company_name": "Concreat Holdings Philippines, Inc.",
+    "stock_symbol": "CHP",
+    "cmpy_id": "662",
+    "security_id": "625"
+  },
+  {
+    "company_name": "Concepcion Industrial Corporation",
+    "stock_symbol": "CIC",
+    "cmpy_id": "648",
+    "security_id": "591"
+  },
+  {
+    "company_name": "Cebu Landmasters, Inc.",
+    "stock_symbol": "CLI",
+    "cmpy_id": "668",
+    "security_id": "635"
+  },
+  {
+    "company_name": "Century Pacific Food, Inc.",
+    "stock_symbol": "CNPF",
+    "cmpy_id": "652",
+    "security_id": "597"
+  },
+  {
+    "company_name": "Converge Information and Communications Technology Solutions, Inc.",
+    "stock_symbol": "CNVRG",
+    "cmpy_id": "680",
+    "security_id": "656"
+  },
+  {
+    "company_name": "Coal Asia Holdings Incorporated",
+    "stock_symbol": "COAL",
+    "cmpy_id": "637",
+    "security_id": "580"
+  },
+  {
+    "company_name": "COL Financial Group, Inc.",
+    "stock_symbol": "COL",
+    "cmpy_id": "601",
+    "security_id": "522"
+  },
+  {
+    "company_name": "Cosco Capital, Inc.",
+    "stock_symbol": "COSCO",
+    "cmpy_id": "50",
+    "security_id": "178"
+  },
+  {
+    "company_name": "Century Properties Group, Inc.",
+    "stock_symbol": "CPG",
+    "cmpy_id": "189",
+    "security_id": "219"
+  },
+  {
+    "company_name": "Century Peak Holdings Corporation",
+    "stock_symbol": "CPM",
+    "cmpy_id": "621",
+    "security_id": "549"
+  },
+  {
+    "company_name": "Citicore Renewable Energy Corporation",
+    "stock_symbol": "CREC",
+    "cmpy_id": "703",
+    "security_id": "710"
+  },
+  {
+    "company_name": "Citicore Energy REIT Corp.",
+    "stock_symbol": "CREIT",
+    "cmpy_id": "691",
+    "security_id": "686"
+  },
+  {
+    "company_name": "Crown Asia Chemicals Corporation",
+    "stock_symbol": "CROWN",
+    "cmpy_id": "657",
+    "security_id": "611"
+  },
+  {
+    "company_name": "Citystate Savings Bank, Inc.",
+    "stock_symbol": "CSB",
+    "cmpy_id": "228",
+    "security_id": "457"
+  },
+  {
+    "company_name": "CTS Global Equity Group, Inc.",
+    "stock_symbol": "CTS",
+    "cmpy_id": "693",
+    "security_id": "688"
+  },
+  {
+    "company_name": "Cyber Bay Corporation",
+    "stock_symbol": "CYBR",
+    "cmpy_id": "67",
+    "security_id": "295"
+  },
+  {
+    "company_name": "DoubleDragon Corporation",
+    "stock_symbol": "DD",
+    "cmpy_id": "651",
+    "security_id": "596"
+  },
+  {
+    "company_name": "DDMP REIT, Inc.",
+    "stock_symbol": "DDMPR",
+    "cmpy_id": "681",
+    "security_id": "664"
+  },
+  {
+    "company_name": "Del Monte Pacific Limited",
+    "stock_symbol": "DELM",
+    "cmpy_id": "642",
+    "security_id": "585"
+  },
+  {
+    "company_name": "DFNN, Inc.",
+    "stock_symbol": "DFNN",
+    "cmpy_id": "187",
+    "security_id": "125"
+  },
+  {
+    "company_name": "Dominion Holdings, Inc.",
+    "stock_symbol": "DHI",
+    "cmpy_id": "31",
+    "security_id": "121"
+  },
+  {
+    "company_name": "DITO CME Holdings Corp.",
+    "stock_symbol": "DITO",
+    "cmpy_id": "36",
+    "security_id": "324"
+  },
+  {
+    "company_name": "Dizon Copper-Silver Mines, Inc.",
+    "stock_symbol": "DIZ",
+    "cmpy_id": "68",
+    "security_id": "323"
+  },
+  {
+    "company_name": "DMCI Holdings, Inc.",
+    "stock_symbol": "DMC",
+    "cmpy_id": "188",
+    "security_id": "192"
+  },
+  {
+    "company_name": "D.M. Wenceslao & Associates, Incorporated",
+    "stock_symbol": "DMW",
+    "cmpy_id": "671",
+    "security_id": "641"
+  },
+  {
+    "company_name": "D&L Industries, Inc.",
+    "stock_symbol": "DNL",
+    "cmpy_id": "639",
+    "security_id": "582"
+  },
+  {
+    "company_name": "Discovery World Corporation",
+    "stock_symbol": "DWC",
+    "cmpy_id": "647",
+    "security_id": "590"
+  },
+  {
+    "company_name": "EasyCall Communications Philippines, Inc.",
+    "stock_symbol": "ECP",
+    "cmpy_id": "70",
+    "security_id": "126"
+  },
+  {
+    "company_name": "East Coast Vulcan Mining Corporation",
+    "stock_symbol": "ECVC",
+    "cmpy_id": "46",
+    "security_id": "346"
+  },
+  {
+    "company_name": "EEI Corporation",
+    "stock_symbol": "EEI",
+    "cmpy_id": "71",
+    "security_id": "148"
+  },
+  {
+    "company_name": "IP E-Game Ventures, Inc.",
+    "stock_symbol": "EG",
+    "cmpy_id": "623",
+    "security_id": "552"
+  },
+  {
+    "company_name": "Empire East Land Holdings, Inc.",
+    "stock_symbol": "ELI",
+    "cmpy_id": "190",
+    "security_id": "300"
+  },
+  {
+    "company_name": "Emperador Inc.",
+    "stock_symbol": "EMI",
+    "cmpy_id": "632",
+    "security_id": "571"
+  },
+  {
+    "company_name": "ENEX Energy Corp.",
+    "stock_symbol": "ENEX",
+    "cmpy_id": "653",
+    "security_id": "599"
+  },
+  {
+    "company_name": "Euro-Med Laboratories Phil., Inc.",
+    "stock_symbol": "EURO",
+    "cmpy_id": "219",
+    "security_id": "236"
+  },
+  {
+    "company_name": "Ever-Gotesco Resources and Holdings, Inc.",
+    "stock_symbol": "EVER",
+    "cmpy_id": "191",
+    "security_id": "193"
+  },
+  {
+    "company_name": "East West Banking Corporation",
+    "stock_symbol": "EW",
+    "cmpy_id": "634",
+    "security_id": "573"
+  },
+  {
+    "company_name": "First Abacus Financial Holdings Corporation",
+    "stock_symbol": "FAF",
+    "cmpy_id": "81",
+    "security_id": "118"
+  },
+  {
+    "company_name": "San Miguel Food and Beverage, Inc.",
+    "stock_symbol": "FB",
+    "cmpy_id": "151",
+    "security_id": "161"
+  },
+  {
+    "company_name": "Figaro Culinary Group, Inc.",
+    "stock_symbol": "FCG",
+    "cmpy_id": "689",
+    "security_id": "684"
+  },
+  {
+    "company_name": "Filinvest Development Corporation",
+    "stock_symbol": "FDC",
+    "cmpy_id": "75",
+    "security_id": "199"
+  },
+  {
+    "company_name": "Ferronoux Holdings, Inc.",
+    "stock_symbol": "FERRO",
+    "cmpy_id": "643",
+    "security_id": "586"
   }
 ]

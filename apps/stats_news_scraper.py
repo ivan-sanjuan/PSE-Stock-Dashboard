@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import pprint
 
 def get_news(symbol):
     url = f'https://stockanalysis.com/quote/pse/{symbol}/'
@@ -9,37 +10,53 @@ def get_news(symbol):
     }
     response = requests.get(url, headers=headers)
     html_response = response.text
-    soup = BeautifulSoup(html_response, 'html.parser')    
+    soup = BeautifulSoup(html_response, 'html.parser') 
+    news_blocks = soup.find_all('div', class_='gap-4 border-gray-300 bg-default p-4 shadow last:pb-1 last:shadow-none dark:border-dark-600 sm:border-b sm:px-0 sm:shadow-none sm:last:border-b-0 lg:gap-5 sm:grid sm:grid-cols-news sm:py-6')
+    
     try:
-        # news_block = {}
-        print("Fetching news...")
-        news_image = soup.find_all('img', class_='w-full rounded object-cover')
-        if news_image:
-            news_image_link = news_image
-        news_title = soup.find_all('a', class_='text-default hover:text-blue-brand_sharp dark:text-neutral-300 dark:hover:text-blue-darklink')
-        news_date = soup.find_all('div', class_='mt-1 text-sm text-faded sm:order-1 sm:mt-0')
-        news_summary = soup.find_all('p', class_='overflow-auto text-[0.95rem] text-light sm:order-3')
-        news_link = soup.find_all('a', class_='sm:mt-1')
-        if news_link:
-            news_link_formatted = news_link
+        news_1 = news_blocks[0]
+        news_2 = news_blocks[1]
         
-        # news_block['img'] = 
-        # news_block['title'] = news_title[0].text
-        # news_block['date'] = 
-        # news_block['summary'] = 
-        # news_block['news_link'] = 
+        print('fetching news...')        
+        news_block = {}
+        news_link_1 = news_1.find('a', class_='sm:mt-1').get('href')
+        news_img_1 = news_1.find('img', class_='w-full rounded object-cover').get('src')
+        news_headline_1 = news_1.find('a', class_='text-default hover:text-blue-brand_sharp dark:text-neutral-300 dark:hover:text-blue-darklink').text.strip()
+        news_summary_1 = news_1.find('p', class_='overflow-auto text-[0.95rem] text-light sm:order-3').text.strip()
+        news_src_date_1 = news_1.find('div', class_='mt-1 text-sm text-faded sm:order-1 sm:mt-0').text.strip()
         
-        return {
-            'date': news_date[0].text,
-            'title': news_title[0].text,
-            'summary': news_summary[0].text,
-            'img': news_image_link[0].get('src', 'no image available'),
-            'news_link': news_link_formatted[0].get('href', 'no news link.')
-        }
-    except:
-        print('no news result')
+        news_link_2 = news_2.find('a', class_='sm:mt-1').get('href')
+        news_img_2 = news_2.find('img', class_='w-full rounded object-cover').get('src')
+        news_headline_2 = news_2.find('a', class_='text-default hover:text-blue-brand_sharp dark:text-neutral-300 dark:hover:text-blue-darklink').text.strip()
+        news_summary_2 = news_2.find('p', class_='overflow-auto text-[0.95rem] text-light sm:order-3').text.strip()
+        news_src_date_2 = news_2.find('div', class_='mt-1 text-sm text-faded sm:order-1 sm:mt-0').text.strip()
+    
+        news_block['news_link_1'] = news_link_1
+        news_block['news_img_1'] = news_img_1
+        news_block['news_headline_1'] = news_headline_1
+        news_block['news_summary_1'] = news_summary_1
+        news_block['news_src_date_1'] = news_src_date_1
+        
+        news_block['news_link_2'] = news_link_2
+        news_block['news_img_2'] = news_img_2
+        news_block['news_headline_2'] = news_headline_2
+        news_block['news_summary_2'] = news_summary_2
+        news_block['news_src_date_2'] = news_src_date_2
+        
+    except Exception as e:
+        print(f'Error: {e}')
+    
+    
+    return news_block
+    
+    
+# name = 'AC'
+# test = get_news(name)
+# print(test)
 
+######################### INCORPORATE THIS INTO YOUR CODE
 
-name='AC'
-test = get_news(name)
-print(test)
+# except Exception as e:
+#     print(f"Error: {e}")
+    
+#########################   

@@ -256,42 +256,96 @@ def main (page: ft.Page):
     def get_latest_news(e):
         handle_symbol = symbol_handler(user_input.value).upper()
         news_result = get_news(handle_symbol)
-        date = news_result.get('date')
-        news_title = news_result.get('title')
-        summary = news_result.get('summary')
-        featured_image = news_result.get('img')
-        news_link = news_result.get('news_link')
+        date_1 = news_result.get('news_src_date_1')
+        news_title_1 = news_result.get('news_headline_1')
+        summary_1 = news_result.get('news_summary_1')
+        featured_image_1 = news_result.get('news_img_1')
+        news_link_1 = news_result.get('news_link_1')
         
-        def open_website(e):
-            webbrowser.open(news_link)
+        date_2 = news_result.get('news_src_date_2')
+        news_title_2 = news_result.get('news_headline_2')
+        summary_2 = news_result.get('news_summary_2')
+        featured_image_2 = news_result.get('news_img_2')
+        news_link_2 = news_result.get('news_link_2')
         
-        news_date_widget = ft.Text('', size=12, color='#333333')
-        news_title_widget = ft.Text('', size=24, color='#000000', weight=ft.FontWeight.BOLD)
-        news_summary_widget = ft.Text('', size=16, color='#000000')
-        news_featured_image_widget = ft.Image(src='', height=200, width=300, fit=ft.ImageFit.COVER)
-        news_link_widget = ft.ElevatedButton(text='READ MORE', icon=ft.Icons.OPEN_IN_BROWSER, on_click=open_website)
+        def open_website_1(e):
+            webbrowser.open(news_link_1)
+            
+        def open_website_2(e):
+            webbrowser.open(news_link_2)
         
-        news_date_widget.value = date
-        news_title_widget.value = news_title
-        news_summary_widget.value = summary
-        news_featured_image_widget.src = featured_image
+        news_date_widget_1 = ft.Text('', size=12, color='#333333')
+        news_title_widget_1 = ft.Text('', size=22, color='#000000', weight=ft.FontWeight.BOLD, expand=True, text_align=ft.TextAlign.LEFT)
+        news_summary_widget_1 = ft.Text('', size=15, color='#000000', expand=True, text_align=ft.TextAlign.LEFT)
+        news_featured_image_widget_1 = ft.Image(src='', height=180, width=300, fit=ft.ImageFit.COVER, border_radius=5)
+        news_link_widget_1 = ft.ElevatedButton(text='READ MORE', icon=ft.Icons.OPEN_IN_BROWSER, on_click=open_website_1)
+        
+        news_date_widget_1.value = date_1
+        news_title_widget_1.value = news_title_1
+        news_summary_widget_1.value = summary_1
+        news_featured_image_widget_1.src = featured_image_1
+        
+        news_date_widget_2 = ft.Text('', size=12, color='#333333')
+        news_title_widget_2 = ft.Text('', size=22, color='#000000', weight=ft.FontWeight.BOLD, expand=True, text_align=ft.TextAlign.LEFT)
+        news_summary_widget_2 = ft.Text('', size=15, color='#000000', expand=True, text_align=ft.TextAlign.LEFT)
+        news_featured_image_widget_2 = ft.Image(src='', height=180, width=300, fit=ft.ImageFit.COVER, border_radius=5)
+        news_link_widget_2 = ft.ElevatedButton(text='READ MORE', icon=ft.Icons.OPEN_IN_BROWSER, on_click=open_website_2)
+        
+        news_date_widget_2.value = date_2
+        news_title_widget_2.value = news_title_2
+        news_summary_widget_2.value = summary_2
+        news_featured_image_widget_2.src = featured_image_2
         
         news_section = ft.Container(
             padding=ft.padding.all(10),
             width=900,
             height=435,
-            content=ft.Row(
+            content=ft.Column(
                 controls=[
-                    news_featured_image_widget,
-                    ft.Container(
-                        content=ft.Column(
-                            controls=[
-                                news_date_widget,
-                                news_title_widget,
-                                news_summary_widget,
-                                news_link_widget
-                            ]
-                        )
+                    ft.Row(
+                        controls=[
+                            news_featured_image_widget_1,
+                            ft.Container(
+                                content=ft.Column(
+                                    controls=[
+                                        news_date_widget_1,                                
+                                        ft.Container(
+                                            width=580,
+                                            content=ft.Column(
+                                                controls=[
+                                                news_title_widget_1,
+                                                news_summary_widget_1
+                                                ]
+                                            )
+                                        ),
+                                        news_link_widget_1
+                                    ]
+                                )
+                            )
+                        ]
+                    ),
+                    ft.Container(height=5),
+                    ft.Row(
+                        controls=[
+                            news_featured_image_widget_2,
+                            ft.Container(
+                                content=ft.Column(
+                                    controls=[
+                                        news_date_widget_2,                                
+                                        ft.Container(
+                                            width=580,
+                                            content=ft.Column(
+                                                controls=[
+                                                news_title_widget_2,
+                                                news_summary_widget_2
+                                                ]
+                                            )
+                                        ),
+                                        news_link_widget_2
+                                    ]
+                                )
+                            )
+                        ]
                     )
                 ]
             )
@@ -307,7 +361,7 @@ def main (page: ft.Page):
 
     button_revenue_report = StockFunctions(ft.Icons.STACKED_LINE_CHART,'Revenue Report', on_click=get_revenue_report)
     button_dividend_report = StockFunctions(ft.Icons.LIBRARY_BOOKS_SHARP,'Dividend Report', on_click=generate_dividend_report)
-    button_news_report = StockFunctions(ft.Icons.NEWSPAPER,'News', on_click=get_news)
+    button_news_report = StockFunctions(ft.Icons.NEWSPAPER,'News', on_click=get_latest_news)
 
     open_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
     close_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)   
