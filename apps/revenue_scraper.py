@@ -6,7 +6,11 @@ from io import StringIO
 
 def get_revenue(symbol):
     url=f'https://stockanalysis.com/quote/pse/{symbol}/revenue/'
-    response = requests.get(url)
+    headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+    "Accept-Language": "en-US,en;q=0.9",
+    }
+    response = requests.get(url, headers=headers)
     html_data = response.text
     soup = BeautifulSoup(html_data, 'html.parser')
     figures_revenue = soup.find('div', class_='my-5 grid grid-cols-2 gap-3 px-1 text-base xs:mt-6 bp:mt-7 bp:text-lg sm:grid-cols-3 sm:gap-6 sm:px-4 sm:text-xl')

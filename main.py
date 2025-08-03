@@ -8,6 +8,7 @@ from apps.div_yield import search_div
 from apps.revenue_scraper import get_revenue
 from apps.revenue_scraper import get_revenue_history
 from apps.stats_news_scraper import get_news
+from apps.financials_scraper import get_company_financials
 import pandas as pd
 
 class StockFunctions(ft.Container):
@@ -119,7 +120,7 @@ def main (page: ft.Page):
         market_cap_widget = ft.Text('', color='#000000', size=24, weight=ft.FontWeight.BOLD)
         market_cap_widget.value = market_cap
         
-        def headers (df : pd.DataFrame):
+        def headers(df : pd.DataFrame):
             return [ft.DataColumn(ft.Text(col)) for col in df.columns]
         
         def rows(df : pd.DataFrame):
@@ -355,6 +356,45 @@ def main (page: ft.Page):
         page.update()
     
     
+    def get_fundamentals(e):
+        handle_symbol = symbol_handler(user_input.value).upper()    
+        df = get_company_financials(handle_symbol)
+    
+        def headers(df : pd.DataFrame):
+            return [ft.DataColumn(ft.Text(col)) for col in df.columns]
+        
+        def rows(df : pd.DataFrame):
+            rows = []
+            for index, row in df.iterrows():
+                row_cells = [
+                ft.DataCell(ft.Text(str(row[header]), color='#1F2134'))
+                for header in df.columns
+                ]
+                rows.append(ft.DataRow(cells=row_cells))
+                
+            return rows
+        
+        fundamentals_history_table = ft.Container(
+            content=ft.Column(
+                controls=[
+                    ft.DataTable(
+                        columns=headers(df),
+                        rows=rows(df),
+                        column_spacing=20,
+                        heading_row_color='#1F2134',
+                        data_row_color={ft.ControlState.HOVERED: "0x30CCCCCC"},
+                        show_checkbox_column=True,
+                        border=ft.border.all(1, ft.Colors.GREY),
+                        width=900,
+                    )
+                ]
+            )
+        )
+
+
+        output_section.controls.clear()
+        output_section.controls.append(fundamentals_history_table)
+        page.update()
 
 
 #-------------------------------------------VARIABLES-------------------------------------------#
@@ -362,6 +402,7 @@ def main (page: ft.Page):
     button_revenue_report = StockFunctions(ft.Icons.STACKED_LINE_CHART,'Revenue Report', on_click=get_revenue_report)
     button_dividend_report = StockFunctions(ft.Icons.LIBRARY_BOOKS_SHARP,'Dividend Report', on_click=generate_dividend_report)
     button_news_report = StockFunctions(ft.Icons.NEWSPAPER,'News', on_click=get_latest_news)
+    button_financial_report = StockFunctions(ft.Icons.BUSINESS,'Fundamentals', on_click=get_fundamentals)
 
     open_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
     close_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)   
@@ -485,7 +526,7 @@ def main (page: ft.Page):
                                 ),
                                 padding = ft.padding.only(top=15,left=20,right=20,bottom=20)
                             ),
-                            StockFunctions(ft.Icons.BUSINESS,'Fundamentals').render(),
+                            button_financial_report.render(),
                             button_revenue_report.render(),
                             button_dividend_report.render(),
                             button_news_report.render(),

@@ -3,7 +3,11 @@ import requests
 
 def get_stats(e):
     url = f'https://stockanalysis.com/quote/pse/{e}/statistics/'
-    response = requests.get(url)
+    headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+    "Accept-Language": "en-US,en;q=0.9",
+    }
+    response = requests.get(url, headers=headers)
     html = response.text
     soup = BeautifulSoup(html,'html.parser')
     company_name = soup.find('div', class_='mb-0 text-2xl font-bold text-default sm:text-[26px]').text
