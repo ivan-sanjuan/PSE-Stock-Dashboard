@@ -14,16 +14,24 @@ def search_div(symbol):
     response = requests.get(url, headers=headers)
     html_data = response.text
     soup = BeautifulSoup(html_data,'html.parser')
-    div_table = soup.find('div', class_='mt-4 bp:mt-7')
-    rows = div_table.find_all('tr')
-    with open('dividend_history.csv', 'w', newline='', encoding='utf-8') as f:
-        writer = csv.writer(f)
-        table = PrettyTable()
-        for row in rows:
-            table.cols = row.find_all(['th', 'td'])
-            table.data = [col.get_text(strip=True) for col in table.cols]
-            writer.writerow(table.data)
-    div_df = pd.read_csv('dividend_history.csv', index_col=None, na_values=['N/A'])
-    print('getting div report..')
+    
+    try:
+        div_table = soup.find('div', class_='mt-4 bp:mt-7')
+        rows = div_table.find_all('tr')
+        with open('dividend_history.csv', 'w', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            table = PrettyTable()
+            for row in rows:
+                table.cols = row.find_all(['th', 'td'])
+                table.data = [col.get_text(strip=True) for col in table.cols]
+                writer.writerow(table.data)
+        div_df = pd.read_csv('dividend_history.csv', index_col=None, na_values=['N/A'])
+        print('getting div report..')
+    
+    except Exception as e:
+        print(f'An error has occured: {e}')
+        
+    except UnboundLocalError:
+        print(f'Dividend Report not available for {symbol}')
     
     return div_df

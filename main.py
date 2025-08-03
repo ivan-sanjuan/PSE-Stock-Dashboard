@@ -5,10 +5,10 @@ from apps.initial_data_scraper import get_initial_data
 from apps.logo_scraper import get_company_logo
 from apps.stock_utils import symbol_handler
 from apps.div_yield import search_div
-from apps.revenue_scraper import get_revenue
-from apps.revenue_scraper import get_revenue_history
+from apps.revenue_scraper import get_revenue, get_revenue_history
 from apps.stats_news_scraper import get_news
 from apps.financials_scraper import get_company_financials
+from apps.about_company_scraper import get_company_profile, get_company_profile_origin
 import pandas as pd
 
 class StockFunctions(ft.Container):
@@ -359,6 +359,7 @@ def main (page: ft.Page):
     def get_fundamentals(e):
         handle_symbol = symbol_handler(user_input.value).upper()    
         df = get_company_financials(handle_symbol)
+        
     
         def headers(df : pd.DataFrame):
             return [ft.DataColumn(ft.Text(col)) for col in df.columns]
@@ -396,6 +397,68 @@ def main (page: ft.Page):
         output_section.controls.append(fundamentals_history_table)
         page.update()
 
+    def get_company_about(e):
+        handle_symbol = symbol_handler(user_input.value).upper()
+        company_profile = get_company_profile(handle_symbol)
+        df = get_company_profile_origin(handle_symbol)
+        company_name = company_profile.get('company_name')
+        company_about = company_profile.get('company_about')
+        
+        company_name_widget = ft.Text(value='', size=24, color='#000000', weight=ft.FontWeight.BOLD)
+        company_about_widget = ft.Text(value='', size=16, color="#727272")
+        
+        company_name_widget.value = company_name
+        company_about_widget.value = company_about
+            
+        def header(df: pd.DataFrame):
+            return [ft.DataColumn(ft.Text('')) for col in df.columns]
+        
+        def rows(df: pd.DataFrame):
+            rows = []
+            for index, row in df.iterrows():
+                row_cells = [
+                    ft.DataCell(ft.Text(str(row[header]),color='#000000'))
+                    for header in df.columns
+                ]
+                rows.append(ft.DataRow(cells=row_cells))
+        
+            return rows
+            
+        about_origin = ft.DataTable(
+            columns=header(df),
+            rows=rows(df),
+            width=200,
+            column_spacing=20,
+            heading_row_color='#1F2134',
+            data_row_color={ft.ControlState.HOVERED: "0x30CCCCCC"},
+            show_checkbox_column=True,
+            border=ft.border.all(1, ft.Colors.GREY)
+            )
+
+        company_about_section =  ft.Container(
+            padding=ft.padding.all(10),
+            width=900,
+            height=435,
+            content=ft.Row(
+                controls=[
+                    ft.Container(
+                        width=700,
+                        content=ft.Column(
+                                controls=[
+                                    company_name_widget,
+                                    company_about_widget
+                                ]
+                            )
+                        ),
+                    ft.Container(
+                        content=about_origin
+                    )
+                ]
+            )
+        )
+        output_section.controls.clear()
+        output_section.controls.append(company_about_section)
+        page.update()
 
 #-------------------------------------------VARIABLES-------------------------------------------#
 
@@ -403,6 +466,7 @@ def main (page: ft.Page):
     button_dividend_report = StockFunctions(ft.Icons.LIBRARY_BOOKS_SHARP,'Dividend Report', on_click=generate_dividend_report)
     button_news_report = StockFunctions(ft.Icons.NEWSPAPER,'News', on_click=get_latest_news)
     button_financial_report = StockFunctions(ft.Icons.BUSINESS,'Fundamentals', on_click=get_fundamentals)
+    button_about_company = StockFunctions(ft.Icons.INFO,'About the Company', on_click=get_company_about)
 
     open_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)
     close_field = ft.Text(value = '', color='#000000', weight=ft.FontWeight.BOLD, size=16)   
@@ -530,7 +594,7 @@ def main (page: ft.Page):
                             button_revenue_report.render(),
                             button_dividend_report.render(),
                             button_news_report.render(),
-                            StockFunctions(ft.Icons.INFO,'About the Company').render()
+                            button_about_company.render()
                         ]
                         
                     ),
