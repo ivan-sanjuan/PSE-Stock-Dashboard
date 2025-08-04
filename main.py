@@ -47,19 +47,21 @@ def main (page: ft.Page):
     page.fonts = {'NunitoSans': 'https://github.com/googlefonts/NunitoSans/tree/main/fonts/ttf/NunitoSans-Medium.ttf?raw=true'}
     page.theme = ft.Theme(font_family='NunitoSans')
     
+    #-------------------------------------------FUNCTIONS-------------------------------------------#
+    
     def lock_stock_symbol(e):
         handle_symbol=symbol_handler(user_input.value).upper()
         image_url = get_company_logo(handle_symbol)
         avatar.foreground_image_src = image_url
         initial_data = get_initial_data(handle_symbol)
-        company_name.value = initial_data.get('Company Name', 'N/A').strip()
-        latest_date.value = initial_data.get('Latest Date').strip()
-        open = initial_data.get('Open', 'N/A').strip()
-        close = initial_data.get('Close', 'N/A').strip()
-        high = initial_data.get('High', 'N/A').strip()
-        low = initial_data.get('Low', 'N/A').strip()
-        high_52 = initial_data.get('wk-high', 'N/A').strip()
-        low_52 = initial_data.get('wk-low', 'N/A').strip()
+        company_name.value = initial_data.get('Company Name', 'N/A')
+        latest_date.value = initial_data.get('Latest Date')
+        open = initial_data.get('Open', 'N/A')
+        close = initial_data.get('Close', 'N/A')
+        high = initial_data.get('High', 'N/A')
+        low = initial_data.get('Low', 'N/A')
+        high_52 = initial_data.get('wk-high', 'N/A')
+        low_52 = initial_data.get('wk-low', 'N/A')
         open_field.value = open
         close_field.value = close
         latest_value.value = close
