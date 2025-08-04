@@ -1,46 +1,45 @@
 Fiscal Year,TTM,FY 2024,FY 2023,FY 2022,FY 2021,FY 2020,2016 - 2020
-Period Ending,"Jun '25 Jun 30, 2025","Dec '24 Dec 31, 2024","Dec '23 Dec 31, 2023","Dec '22 Dec 31, 2022","Dec '21 Dec 31, 2021","Dec '20 Dec 31, 2020",2016 - 2020
-Interest Income on Loans,-,159594,120900,84909,72225,82312,Upgrade
-Interest Income on Investments,-,30360,24672,18359,12392,13996,Upgrade
-Total Interest Income,-,189954,145572,103268,84617,96308,Upgrade
-Interest Paid on Deposits,-,53181,36027,14821,10168,18986,Upgrade
-Interest Paid on Borrowings,-,9187,5195,3381,4866,5058,Upgrade
-Total Interest Expense,-,62368,41222,18202,15034,24044,Upgrade
-Net Interest Income,137486,127586,104350,85066,69583,72264,Upgrade
-Net Interest Income Growth (YoY),19.04%,22.27%,22.67%,22.25%,-3.71%,10.20%,Upgrade
-Income From Trading Activities,4153,3293,1919,857,97,3310,Upgrade
-Gain (Loss) on Sale of Assets,247,247,407,5303,477,372,Upgrade
-Gain (Loss) on Sale of Investments,4,4,2,214,1513,4647,Upgrade
-Gain (Loss) on Sale of Equity Investments,2738,2738,1372,1055,1086,487,Upgrade
-Other Non-Interest Income,36830,36270,30270,26030,24649,20843,Upgrade
-Total Non-Interest Income,43972,42552,33970,33459,27822,29659,Upgrade
-Non-Interest Income Growth (YoY),14.47%,25.26%,1.53%,20.26%,-6.19%,11.14%,Upgrade
-Revenues Before Loan Losses,181458,170138,138320,118525,97405,101923,Upgrade
-Provision for Loan Losses,10850,6600,4000,9167,13135,28000,Upgrade
-Revenue,170608,163538,134320,109358,84270,73923,Upgrade
-Revenue Growth (YoY),14.57%,21.75%,22.83%,29.77%,14.00%,-14.74%,Upgrade
-Salaries and Employee Benefits,28971,28971,23305,19536,18569,17958,Upgrade
-Occupancy Expenses,24171,24171,21514,18761,16010,14606,Upgrade
-"Selling, General & Administrative",4925,4925,4538,2385,929,851,Upgrade
-Other Non-Interest Expense,28971,24501,18917,16959,14852,14309,Upgrade
-Total Non-Interest Expense,87038,82568,68274,57641,50360,47724,Upgrade
-EBT Excluding Unusual Items,83570,80970,66046,51717,33910,26199,Upgrade
-Legal Settlements,-665,-665,-477,-349,-373,-430,Upgrade
-Other Unusual Items,1,1,1,-,-,-,Upgrade
-Pretax Income,82343,79743,65211,51368,33537,25769,Upgrade
-Income Tax Expense,17703,17503,13299,11532,9427,3906,Upgrade
-Earnings From Continuing Operations,64640,62240,51912,39836,24110,21863,Upgrade
-Earnings From Discontinued Operations,-,-,-,-,-,-211,Upgrade
-Minority Interest in Earnings,-191,-191,-225,-231,-230,-243,Upgrade
-Net Income,64449,62049,51687,39605,23880,21409,Upgrade
-Net Income to Common,64449,62049,51687,39605,23880,21409,Upgrade
-Net Income Growth,12.88%,20.05%,30.51%,65.85%,11.54%,-25.67%,Upgrade
-Basic Shares Outstanding,5273,5266,4741,4918,4918,4918,Upgrade
-Diluted Shares Outstanding,5273,5266,4741,4918,4918,4918,Upgrade
-Shares Change (YoY),7.58%,11.07%,-3.59%,-,-,0.13%,Upgrade
-EPS (Basic),12.22,11.78,10.90,8.05,4.86,4.35,Upgrade
-EPS (Diluted),12.22,11.78,10.90,8.05,4.86,4.35,Upgrade
-EPS Growth,4.93%,8.08%,35.37%,65.85%,11.54%,-25.77%,Upgrade
-Dividend Per Share,4.060,3.960,3.360,1.946,1.652,1.652,Upgrade
-Dividend Growth,10.93%,17.86%,72.70%,17.78%,-,-,Upgrade
-Effective Tax Rate,21.50%,21.95%,20.39%,22.45%,28.11%,15.16%,Upgrade
+Period Ending,"Jun '25 Jun 30, 2025","Dec '24 Dec 31, 2024","Dec '23 Dec 31, 2023","Jan '23 Jan 1, 2023","Dec '21 Dec 31, 2021","Dec '20 Dec 31, 2020",2016 - 2020
+Interest Income on Loans,281715,272039,231704,161820,144879,157031,Upgrade
+Interest Paid on Deposits,86561,85443,59317,22861,13533,23331,Upgrade
+Net Interest Income,193275,186596,172387,138959,131346,133700,Upgrade
+Net Interest Income Growth (YoY),6.86%,8.24%,24.06%,5.80%,-1.76%,11.52%,Upgrade
+Trust Income,268,-,-,-,4364,3811,Upgrade
+Income From Trading Activities,2748,-,-,-,220,5563,Upgrade
+Gain (Loss) on Sale of Assets,-,-,-,-,1275,1169,Upgrade
+Gain (Loss) on Sale of Investments,-,-,6107,-,-,-,Upgrade
+Gain (Loss) on Sale of Equity Investments,1397,1397,1273,849,814,-,Upgrade
+Other Non-Interest Income,78813,76341,64138,56351,54681,44667,Upgrade
+Total Non-Interest Income,83226,77738,71518,57200,61354,55210,Upgrade
+Non-Interest Income Growth (YoY),8.54%,8.70%,25.03%,-6.77%,11.13%,-8.15%,Upgrade
+Revenues Before Loan Losses,276501,264334,243905,196159,192700,188910,Upgrade
+Provision for Loan Losses,14948,14262,16406,16565,16942,29661,Upgrade
+Revenue,261553,250072,227499,179594,175758,159249,Upgrade
+Revenue Growth (YoY),8.26%,9.92%,26.67%,2.18%,10.37%,-8.47%,Upgrade
+Salaries and Employee Benefits,56787,52109,45784,42766,41471,37038,Upgrade
+Occupancy Expenses,15072,15072,14472,12677,11204,11172,Upgrade
+Amortization of Goodwill & Intangibles,2141,2141,2917,1343,1342,734,Upgrade
+"Selling, General & Administrative",21184,19548,17230,12490,13061,12776,Upgrade
+Other Non-Interest Expense,60276,55779,48495,36207,51779,50033,Upgrade
+Total Non-Interest Expense,156441,145630,129801,105777,119130,112107,Upgrade
+EBT Excluding Unusual Items,105112,104442,97698,73817,56628,47142,Upgrade
+Asset Writedown,22,222,3,230,-57,-493,Upgrade
+Legal Settlements,-973,-973,-689,-854,-773,-601,Upgrade
+Other Unusual Items,-,-,169,-,-,-,Upgrade
+Pretax Income,104161,103691,97181,73193,55762,46030,Upgrade
+Income Tax Expense,20706,21471,23621,15959,12907,17776,Upgrade
+Earnings From Continuing Operations,83455,82220,73560,57234,42855,28254,Upgrade
+Minority Interest in Earnings,-261,-201,-149,-180,-64,-8,Upgrade
+Net Income,83194,82019,73411,57054,42791,28246,Upgrade
+Preferred Dividends & Other Adjustments,407,407,407,339,340,339,Upgrade
+Net Income to Common,82787,81612,73004,56715,42451,27907,Upgrade
+Net Income Growth,7.13%,11.73%,28.67%,33.33%,51.49%,-36.09%,Upgrade
+Basic Shares Outstanding,5323,5320,5314,5312,5310,5309,Upgrade
+Diluted Shares Outstanding,5366,5363,5362,5371,5362,5309,Upgrade
+Shares Change (YoY),0.07%,0.02%,-0.17%,0.17%,0.99%,0.14%,Upgrade
+EPS (Basic),15.55,15.34,13.74,10.68,7.99,5.26,Upgrade
+EPS (Diluted),15.50,15.29,13.69,10.62,7.98,5.25,Upgrade
+EPS Growth,7.06%,11.71%,28.89%,33.11%,51.96%,-36.51%,Upgrade
+Dividend Per Share,4.073,3.716,2.973,1.189,0.991,0.991,Upgrade
+Dividend Growth,26.47%,25.00%,149.99%,20.00%,-,-,Upgrade
+Effective Tax Rate,19.88%,20.71%,24.31%,21.80%,23.15%,38.62%,Upgrade

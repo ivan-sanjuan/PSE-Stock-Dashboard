@@ -405,7 +405,7 @@ def main (page: ft.Page):
         company_about = company_profile.get('company_about')
         
         company_name_widget = ft.Text(value='', size=24, color='#000000', weight=ft.FontWeight.BOLD)
-        company_about_widget = ft.Text(value='', size=16, color="#727272")
+        company_about_widget = ft.Text(value='', size=12, color="#444444")
         
         company_name_widget.value = company_name
         company_about_widget.value = company_about
@@ -427,7 +427,7 @@ def main (page: ft.Page):
         about_origin = ft.DataTable(
             columns=header(df),
             rows=rows(df),
-            width=200,
+            width=220,
             column_spacing=20,
             heading_row_color='#1F2134',
             data_row_color={ft.ControlState.HOVERED: "0x30CCCCCC"},
@@ -436,13 +436,13 @@ def main (page: ft.Page):
             )
 
         company_about_section =  ft.Container(
-            padding=ft.padding.all(10),
+            padding=ft.padding.all(15),
             width=900,
             height=435,
             content=ft.Row(
                 controls=[
                     ft.Container(
-                        width=700,
+                        width=630,
                         content=ft.Column(
                                 controls=[
                                     company_name_widget,
@@ -451,6 +451,7 @@ def main (page: ft.Page):
                             )
                         ),
                     ft.Container(
+                        padding=ft.padding.only(left=5, right=10, top=0, bottom=0),
                         content=about_origin
                     )
                 ]
